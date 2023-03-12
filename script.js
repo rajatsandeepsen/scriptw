@@ -11,10 +11,14 @@ function findConsole(string){
 	newText = string.replace(/console/g,word)
 	print.clear()
 	try {
-		if (string.indexOf(old) == -1)
-			print.log(eval("(async () => {" + newText + "})()"))
+		// if (string.indexOf(old) == -1)
+		
+			new Function(newText)()
 
-		else eval("(async () => {" + newText + "})()")
+		// else Function(newText)
+
+
+		// else eval("(async () => {" + newText + "})()")
 		
 	}
 	catch (e){ print.error(e) }
@@ -58,25 +62,25 @@ const print = {
 	error: (...arguments) => {
 		$('#preview').append(errPlate(arguments.join(" ")))
 	},
-	text: async ()=>{
-		await new Promise(r => setTimeout(r, 10000));
-		eval("111110")
+	text: ()=>{
+		return ("qwertyuiop")
 	}
 }
 
 
 async function input(string) {
-
 	let id = string.replace(/ /g,'')
 
-	const inputForm = `<form id=${id}><input placeholder=${string} type="text" name="data"></form>`
+	const inputForm = `<form id="${id}"><input placeholder="${string}" type="text" name="data"></form>`
 	$('#preview').append(inputForm)
-	
-	return await addInputDesk(id, "data")
+
+	let x = await addInputDesk(id).then((x)=>{return x})
+	console.log(x)
+	return x
+
 }	
 
-
-function addInputDesk(id, string){
+function addInputDesk(id){
 	return new Promise ((resolve, reject)=>{
 		let element = document.getElementById(id)
 
@@ -84,9 +88,10 @@ function addInputDesk(id, string){
 			e.preventDefault()
 
 			console.log("got the value")
-
 			resolve(e.target.data.value)
 	
 		}, {once : true})
 	})
 }
+
+// eval("input('Enter your name')")
