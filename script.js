@@ -1,49 +1,92 @@
-var htmlEditor = document.getElementById("html-editor");
-var cssEditor = document.getElementById("css-editor");
-var jsEditor = document.getElementById("js-editor");
-var preview = document.getElementById("preview");
-var runButton = document.getElementById("run-button");
+var runner = document.getElementById("runner");
+var scripter = document.getElementById("scripter");
 
-const template = (input) => `<div style="border: 1px solid #ccc">${input}</div>`
+const template = (input) => `<p>${input}</p>`
+const errPlate = (input) => `<p style="color: red;">▸ ${input}</p>`
 
+function findConsole(string){
+	let word ="print"
+	let old = "console"
 
-function updatePreview() {
-	var html = htmlEditor.value;
-	var css = "<style>" + cssEditor.value + "</style>";
-	var js = "<script>" + jsEditor.value + "</script>";
-	// js = js.replace("console.log", "alert");
+	newText = string.replace(/console/g,word)
+	print.clear()
+	try {
+		if (string.indexOf(old) == -1)
+			print.log(eval("(async () => {" + newText + "})()"))
 
-	// var regex = /\((.*?)\)/;
-	// var strToMatch = "This is a test string (more or less)";
-	// var matched = regex.exec(strToMatch);
-	// console.log(matched[1]);
-
-	// var content = template(jsEditor.value);
-	var content = html + css + js;
-	preview.srcdoc = content;
+		else eval("(async () => {" + newText + "})()")
+		
+	}
+	catch (e){ print.error(e) }
 }
 
-runButton.addEventListener("click", function() {
-	updatePreview();
-});
 
-htmlEditor.addEventListener("input", function() {
-	updatePreview();
-});
+scripter.addEventListener("keyup" ,(e)=>{
+	e.target.style.height = "auto"
+	let h = e.target.scrollHeight
+	e.target.style.height = `${h}px`
 
-cssEditor.addEventListener("input", function() {
-	updatePreview();
-});
-
-jsEditor.addEventListener("input", function() {
-	updatePreview();
-});
+})
 
 
-// console.stdlog = console.log.bind(console);
-// console.logs = [];
-// console.log = function(){
-//     console.logs.push(Array.from(arguments));
-//     console.stdlog.apply(console, arguments);
-// 	alert("Hello World")
-// }
+function KeyPress(e) {
+	if (e.keyCode == 13 && e.shiftKey ){
+		e.preventDefault()
+		findConsole(scripter.value)
+	}
+	
+}
+
+scripter.addEventListener("keydown", KeyPress)
+
+
+
+
+const print = {
+	clear: ()=>{
+		$('#preview').html('')
+	},
+
+	log: (...arguments) => {
+		$('#preview').append(template(arguments.join(" ")))
+	},
+
+	assert: (fact, ...arguments) => {
+		if (!fact) $('#preview').append(errPlate(arguments.join(" ")))
+	},
+
+	error: (...arguments) => {
+		$('#preview').append(errPlate(arguments.join(" ")))
+	},
+	text: async ()=>{
+		await new Promise(r => setTimeout(r, 10000));
+		eval("111110")
+	}
+}
+
+
+async function input(string) {
+
+	let id = string.replace(/ /g,'')
+
+	const inputForm = `<form id=${id}><input placeholder=${string} type="text" name="data"></form>`
+	$('#preview').append(inputForm)
+	
+	return await addInputDesk(id, "data")
+}	
+
+
+function addInputDesk(id, string){
+	return new Promise ((resolve, reject)=>{
+		let element = document.getElementById(id)
+
+		element.addEventListener("submit",(e)=>{
+			e.preventDefault()
+
+			console.log("got the value")
+
+			resolve(e.target.data.value)
+	
+		}, {once : true})
+	})
+}

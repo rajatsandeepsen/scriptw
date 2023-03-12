@@ -27,3 +27,16 @@ console.log = function(){
     console.stdlog.apply(console, arguments);
 }
 ```
+
+```
+
+	
+	// js = js.replace("console.log", "alert");
+
+	// var regex = /\((.*?)\)/;
+	// var strToMatch = "This is a test string (more or less)";
+	// var matched = regex.exec(strToMatch);
+	// console.log(matched[1]);
+
+	// var content = template(jsEditor.value);
+```
