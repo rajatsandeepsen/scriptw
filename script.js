@@ -74,13 +74,6 @@ async function input(string) {
 	const inputForm = `<form id="${id}"><input placeholder="${string}" type="text" name="data"></form>`
 	$('#preview').append(inputForm)
 
-	let x = await addInputDesk(id).then((x)=>{return x})
-	console.log(x)
-	return x
-
-}	
-
-function addInputDesk(id){
 	return new Promise ((resolve, reject)=>{
 		let element = document.getElementById(id)
 
@@ -92,6 +85,21 @@ function addInputDesk(id){
 	
 		}, {once : true})
 	})
-}
+
+}	
+
+// function addInputDesk(id){
+// 	return new Promise ((resolve, reject)=>{
+// 		let element = document.getElementById(id)
+
+// 		element.addEventListener("submit",(e)=>{
+// 			e.preventDefault()
+
+// 			console.log("got the value")
+// 			resolve(e.target.data.value)
+	
+// 		}, {once : true})
+// 	})
+// }
 
 // eval("input('Enter your name')")
