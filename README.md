@@ -40,3 +40,8 @@ console.log = function(){
 
 	// var content = template(jsEditor.value);
 ```
+
+
+```
+onInput={()=>hljs.highlightAll()}
+```

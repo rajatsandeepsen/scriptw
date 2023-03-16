@@ -1,0 +1,38 @@
+
+.Markdown{
+  position: relative;
+  background: #010409;
+  border: 1px solid #2D3139;
+  overflow: hidden;
+  
+  code {
+    padding: 1.5rem 3rem;
+    margin: 0;
+  }
+  pre {
+    padding: 0;
+    margin: 0;
+    min-height: 150px;
+    display: flex;
+  }
+  textarea {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: transparent;
+    color: rgba(255, 0, 0, 0);
+    padding: 17px 17px;
+  }
+}
+
+.Button{
+  all: unset;
+  background-color: #010409;
+  border: 1px solid #2D3139;
+  padding: .5rem 1rem;
+  &:hover{
+    background-color: #25292D;
+  }
+}
