@@ -34,7 +34,7 @@ export default function Home() {
         let start = $(this).get(0).selectionStart
         let end = $(this).get(0).selectionEnd
 
-        this.value = this.value.substring(0,start) + "\t" + this.value.substring(end)
+        this.value = this.value.substring(0,start) + '\xa0'.repeat(5) + this.value.substring(end)
         this.selectionStart = this.selectionEnd = start + 1
          
       }
