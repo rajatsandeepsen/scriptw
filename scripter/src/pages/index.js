@@ -68,7 +68,7 @@ export default function Home() {
               </code>
               <code id='hello'></code>
             </pre>
-            <textarea name="" id="textarea"></textarea>
+            <textarea name="" id="textarea" className='w-100'></textarea>
           </div>
         
 
