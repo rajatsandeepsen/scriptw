@@ -14,42 +14,29 @@ export default function Codespace({data}) {
 
     print.current = {
       log: (...e)=> setResult(result + `<span>${e.join(" ")}</span>`),
-      clear: ()=> setResult(``),
+      clear: ()=>{ setResult(``), document.getElementById(id+'result').innerHTML = ''},
       assert: (fact, ...arg) => { if (!fact) setResult(result + `<span class="err">${arg.join(" ")}</span>`) },
       error: (...arg) => setResult(result + `<span class="err">${arg.join(" ")}</span>`),
     }
 
-    // const print = {
-    //   clear: ()=>{
-    //     $('#preview').html('')
-    //   },
-    
-    //   log: (...arguments) => {
-    //     $('#preview').append(template(arguments.join(" ")))
-    //   },
-    
-    //   assert: (fact, ...arguments) => {
-    //     if (!fact) $('#preview').append(errPlate(arguments.join(" ")))
-    //   },
-    
-    //   error: (...arguments) => {
-    //     $('#preview').append(errPlate(arguments.join(" ")))
-    //   },
-    //   text: ()=>{
-    //     return ("qwertyuiop")
-    //   }
-    // }
-
+function consoleTemplate(id){
+  return `const doc = "${id  + 'result'}";\n`+
+      "const print = { clear: ()=> document.getElementById(doc).innerHTML = '',\n" +
+      "log: (...arg) => document.getElementById(doc).innerHTML += `<span>>&ensp;${arg.join(' ')}</span>`,\n" +
+      "assert: (fact, ...arg) => !fact ? document.getElementById(doc).innerHTML += `<span class='err'>>&ensp;${arg.join(' ')}</span>` : fact ,\n" +
+      "error: (...arg) => document.getElementById(doc).innerHTML += `<span class='err'>>&ensp;${arg.join(' ')}</span>` , };\n"
+  }
 
     compute.current = () => {
-      let word ="print.current"
+      let word ="print"
       let old = "console"
     
-      let runable = codes //.replace(/console/g,word)
+      let runable = consoleTemplate(id) + codes.replace(/console/g,word)
+      console.log(runable)
       print.current.clear()
 
         try { new Function(runable)() }
-        catch (e){ console.log(e) }
+        catch (e){ console.log(e); eval(runable) }
 
         // setResult() 
     }
@@ -76,7 +63,7 @@ export default function Codespace({data}) {
                 <button className={styles.Button}>Markdown <i className="bi bi-pen"/></button>
             </ul>
           </div>
-          <div className='w-100 flex-grow-1'>
+          <div id={id + 'result'} className='w-100 flex-grow-1 d-flex flex-column'>
             {result}
           </div>
         </section>
