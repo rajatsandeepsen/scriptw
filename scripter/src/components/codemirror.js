@@ -4,17 +4,54 @@ import { javascript } from "@codemirror/lang-javascript";
 import { githubDark } from '@uiw/codemirror-theme-github';
 import { useEffect, useState, useRef } from 'react'
 
-export default function Codespace({init, name, output}) {
+export default function Codespace({data}) {
+    const {init, name, output} = data
     const [codes, setCodes] = useState(init)
+    const [result, setResult ] = useState(output)
     const compute = useRef()
+    const print = useRef()
     const id = name
+
+    print.current = {
+      log: (...e)=> setResult(result + `<span>${e.join(" ")}</span>`),
+      clear: ()=> setResult(``),
+      assert: (fact, ...arg) => { if (!fact) setResult(result + `<span class="err">${arg.join(" ")}</span>`) },
+      error: (...arg) => setResult(result + `<span class="err">${arg.join(" ")}</span>`),
+    }
+
+    // const print = {
+    //   clear: ()=>{
+    //     $('#preview').html('')
+    //   },
+    
+    //   log: (...arguments) => {
+    //     $('#preview').append(template(arguments.join(" ")))
+    //   },
+    
+    //   assert: (fact, ...arguments) => {
+    //     if (!fact) $('#preview').append(errPlate(arguments.join(" ")))
+    //   },
+    
+    //   error: (...arguments) => {
+    //     $('#preview').append(errPlate(arguments.join(" ")))
+    //   },
+    //   text: ()=>{
+    //     return ("qwertyuiop")
+    //   }
+    // }
 
 
     compute.current = () => {
-        console.log(codes)
+      let word ="print.current"
+      let old = "console"
+    
+      let runable = codes //.replace(/console/g,word)
+      print.current.clear()
 
-        try { new Function(newText)() }
-        catch (e){ print.error(e) }
+        try { new Function(runable)() }
+        catch (e){ console.log(e) }
+
+        // setResult() 
     }
 
     function callRefCompute(e){
@@ -40,7 +77,7 @@ export default function Codespace({init, name, output}) {
             </ul>
           </div>
           <div className='w-100 flex-grow-1'>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum omnis, reiciendis distinctio delectus vitae inventore voluptate doloribus quis adipisci beatae quam, atque autem praesentium ipsa dolorem amet, velit qui at mollitia! Maiores mollitia optio labore aliquid sapiente debitis hic maxime deserunt fugit, ad assumenda id. Hic eveniet fugiat possimus nulla!
+            {result}
           </div>
         </section>
   )
