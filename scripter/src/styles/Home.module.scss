@@ -4,6 +4,7 @@
   background: #010409;
   border: 1px solid #2D3139;
   overflow: hidden;
+  min-height: 200px;
   
   code {
     padding: 1.5rem 3rem;
@@ -36,3 +37,28 @@
     background-color: #25292D;
   }
 }
+
+.codespace {
+  position: relative;
+  background: #010409;
+  border: 1px solid #2D3139;
+  min-height: 200px;
+  width: 100%;
+  padding-bottom: 25px ;
+  margin-bottom: 40px;
+
+  ul {
+    position:absolute;
+    bottom: -40px;
+    left: 0;
+    padding: 0;
+    z-index: 10;
+    color: white;
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    width: 100%;
+    transition: all .3s ease-in-out;
+  }
+}
+
