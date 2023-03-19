@@ -7,8 +7,8 @@ import Codespace from '@/components/codemirror'
 
 export default function Home() {
   const array = [
-    {init: "console.log('hi1')",name: 'one', output: 'qwertyuio'},
-    {init: "console.log('hi2')",name: 'two', output: 'qwertyuio'},
+    {init: "console.log('hi1')",name: 'one', output: '<span>&gt; hi1</span><span>&gt; hi1</span><span>&gt; hi1</span><span>&gt; hi1</span>'},
+    {init: "console.error('hi2')",name: 'two', output: 'qwertyuio'},
     {init: "console.log('hi3')",name: 'three', output: 'qwertyuio'},
     {init: "console.log('hi4')",name: 'four', output: 'qwertyuio'},
     {init: "console.log('hi5')",name: 'five', output: 'qwertyuio'},

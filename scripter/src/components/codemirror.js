@@ -3,42 +3,27 @@ import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { githubDark } from '@uiw/codemirror-theme-github';
 import { useEffect, useState, useRef } from 'react'
+import { consoleTemplate } from '@/functions/input';
 
 export default function Codespace({data}) {
     const {init, name, output} = data
     const [codes, setCodes] = useState(init)
     const [result, setResult ] = useState(output)
     const compute = useRef()
-    const print = useRef()
+    // const print = useRef()
     const id = name
 
-    print.current = {
-      log: (...e)=> setResult(result + `<span>${e.join(" ")}</span>`),
-      clear: ()=>{ setResult(``), document.getElementById(id+'result').innerHTML = ''},
-      assert: (fact, ...arg) => { if (!fact) setResult(result + `<span class="err">${arg.join(" ")}</span>`) },
-      error: (...arg) => setResult(result + `<span class="err">${arg.join(" ")}</span>`),
-    }
 
-function consoleTemplate(id){
-  return `const doc = "${id  + 'result'}";\n`+
-      "const print = { clear: ()=> document.getElementById(doc).innerHTML = '',\n" +
-      "log: (...arg) => document.getElementById(doc).innerHTML += `<span>>&ensp;${arg.join(' ')}</span>`,\n" +
-      "assert: (fact, ...arg) => !fact ? document.getElementById(doc).innerHTML += `<span class='err'>>&ensp;${arg.join(' ')}</span>` : fact ,\n" +
-      "error: (...arg) => document.getElementById(doc).innerHTML += `<span class='err'>>&ensp;${arg.join(' ')}</span>` , };\n"
-  }
+    compute.current = () => {    
+      let runable = consoleTemplate(id) + codes.replace(/console/g,'print')
 
-    compute.current = () => {
-      let word ="print"
-      let old = "console"
-    
-      let runable = consoleTemplate(id) + codes.replace(/console/g,word)
-      console.log(runable)
-      print.current.clear()
-
-        try { new Function(runable)() }
-        catch (e){ console.log(e); eval(runable) }
-
-        // setResult() 
+      try { new Function(runable)() }
+      catch (e){ 
+        document.getElementById(id + 'result').innerHTML += `<span class='err'>>&ensp;${e}</span>`
+      }
+      finally { 
+        setResult(document.getElementById(id + 'result').innerHTML)
+      }
     }
 
     function callRefCompute(e){
@@ -47,7 +32,9 @@ function consoleTemplate(id){
             compute.current();
         }
     }
-
+useEffect(()=>{
+  console.log(result)
+},[result])
   return (
         <section className='d-flex flex-column align-items-center w-100 gap-3'>
           <div id={id} onKeyDown={callRefCompute} className={styles.codespace} tabIndex="0">
@@ -63,9 +50,8 @@ function consoleTemplate(id){
                 <button className={styles.Button}>Markdown <i className="bi bi-pen"/></button>
             </ul>
           </div>
-          <div id={id + 'result'} className='w-100 flex-grow-1 d-flex flex-column'>
-            {result}
-          </div>
+          <code id={id + 'result'} className='w-100 flex-grow-1 d-flex flex-column' dangerouslySetInnerHTML={{__html : result === ''? '' : result}}>
+          </code>
         </section>
   )
 }

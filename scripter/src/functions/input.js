@@ -17,3 +17,25 @@ export async function input(string) {
 	})
 
 }
+
+export function consoleTemplate(id){
+	return `const doc = "${id  + 'result'}";\n`+
+		"const print = { clear: ()=> document.getElementById(doc).innerHTML = '',\n" +
+		"log: (...arg) => document.getElementById(doc).innerHTML += `<span>>&ensp;${arg.join(' ')}</span>`,\n" +
+		"assert: (fact, ...arg) => !fact ? document.getElementById(doc).innerHTML += `<span class='err'>>&ensp;${arg.join(' ')}</span>` : fact ,\n" +
+		"error: (...arg) => document.getElementById(doc).innerHTML += `<span class='err'>>&ensp;${arg.join(' ')}</span>` , };\n" +
+		"print.clear()\n" 
+	}
+  
+
+
+	
+	// print.current = {
+	// 	log: (...e)=> setResult(result + `<span>${e.join(" ")}</span>`),
+	// 	clear: ()=>{ setResult(``), document.getElementById(id+'result').innerHTML = ''},
+	// 	assert: (fact, ...arg) => { if (!fact) setResult(result + `<span class="err">${arg.join(" ")}</span>`) },
+	// 	error: (...arg) => setResult(result + `<span class="err">${arg.join(" ")}</span>`),
+	//   }
+
+	// print.current.clear()
+  
