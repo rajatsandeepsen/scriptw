@@ -20,11 +20,11 @@ export async function input(string) {
 
 export function consoleTemplate(id){
 	return `const doc = "${id  + 'result'}";\n`+
-		"const print = { clear: ()=> document.getElementById(doc).innerHTML = '',\n" +
+		"const console = { clear: ()=> document.getElementById(doc).innerHTML = '',\n" +
 		"log: (...arg) => document.getElementById(doc).innerHTML += `<span>>&ensp;${arg.join(' ')}</span>`,\n" +
 		"assert: (fact, ...arg) => !fact ? document.getElementById(doc).innerHTML += `<span class='err'>>&ensp;${arg.join(' ')}</span>` : fact ,\n" +
 		"error: (...arg) => document.getElementById(doc).innerHTML += `<span class='err'>>&ensp;${arg.join(' ')}</span>` , };\n" +
-		"print.clear()\n" 
+		"console.clear()\n" 
 	}
   
 
@@ -38,4 +38,10 @@ export function consoleTemplate(id){
 	//   }
 
 	// print.current.clear()
-  
+// export function consoleTemplate(id){
+// 	const oldConsole = console.log
+// 	console.log = (...e) => {
+// 		document.getElementById(id + 'result').innerHTML += `<span>>&ensp;${e.join(' ')}</span>`
+// 		oldConsole(...e)
+// 	}
+// }

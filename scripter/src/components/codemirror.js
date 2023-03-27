@@ -15,7 +15,7 @@ export default function Codespace({data}) {
 
 
     compute.current = () => {    
-      let runable = consoleTemplate(id) + codes.replace(/console/g,'print')
+      let runable = consoleTemplate(id) + codes //.replace(/console/g,'print')
 
       try { new Function(runable)() }
       catch (e){ 
@@ -32,9 +32,7 @@ export default function Codespace({data}) {
             compute.current();
         }
     }
-useEffect(()=>{
-  console.log(result)
-},[result])
+
   return (
         <section className='d-flex flex-column align-items-center w-100 gap-3'>
           <div id={id} onKeyDown={callRefCompute} className={styles.codespace} tabIndex="0">
