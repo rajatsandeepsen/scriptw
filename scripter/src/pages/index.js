@@ -28,7 +28,7 @@ export default function Home() {
         <header className='container d-flex flex-column align-items-start'>
           <h1><i className="bi bi-code"/></h1>
           <h1>Scripter</h1>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid ullam impedit maxime ad libero aperiam.</p>
+          <p>I hate Python, so build a jupyter notebook for Javascript</p>
         </header>
         <div className='container d-flex flex-column gap-5'>
           
