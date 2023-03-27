@@ -46,6 +46,7 @@ export default function Codespace({data}) {
             <ul>
                 <button className={styles.Button}>Code <i className="bi bi-code"/></button>
                 <button className={styles.Button}>Markdown <i className="bi bi-pen"/></button>
+                <button onClick={compute.current} className={styles.Button}>Run <i className="bi bi-gear"/></button>
             </ul>
           </div>
           <code id={id + 'result'} className='w-100 flex-grow-1 d-flex flex-column' dangerouslySetInnerHTML={{__html : result === ''? '' : result}}>
