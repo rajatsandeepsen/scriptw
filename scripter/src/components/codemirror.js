@@ -16,7 +16,7 @@ export default function Codespace({data}) {
 
     compute.current = () => {    
       let runable = consoleTemplate(id) + codes //.replace(/console/g,'print')
-
+      document.getElementById(id + 'result').innerHTML = ''
       try { new Function(runable)() }
       catch (e){ 
         document.getElementById(id + 'result').innerHTML += `<span class='err'>>&ensp;${e}</span>`
