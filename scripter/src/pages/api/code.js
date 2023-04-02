@@ -2,19 +2,18 @@
 
 
 const array = [
-  {init: "console.log('hi1')",name: 'one', output: '<span>&gt; hi1</span><span>&gt; hi1</span><span>&gt; hi1</span><span>&gt; hi1</span>'},
-  {init: "console.error('hi2')",name: 'two', output: 'qwertyuio'},
-  {init: "console.did('hi3')",name: 'three', output: 'qwertyuio'},
-  {init: "console.log('hi4')",name: 'four', output: 'qwertyuio'},
-  {init: "console.log('hi5')",name: 'five', output: 'qwertyuio'},
-  {init: "console.log('hi6')",name: 'six', output: 'qwertyuio'},
+  {init: "const pp = (hi)=> console.log(hi) \npp('hello')",id: 'one', output: ''},
+  {init: "pp('hello2')",id: 'two', output: ''},
+  {init: "console.log('hi3')",id: 'three', output: ''},
+  {init: "console.log('hi4')",id: 'four', output: ''},
+  {init: "console.log('hi5')",id: 'five', output: ''},
+  {init: "console.log('hi6')",id: 'six', output: ''},
 ]
 
 export default function handler(req, res) {
   setTimeout(() => {
-  res.status(200).json({
-    array: array
-  })
-}, 1000)
-console.log("done")
+    res.status(200).json({
+      array: array
+    })
+  }, 1000)
 }

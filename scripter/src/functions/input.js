@@ -18,30 +18,36 @@ export async function input(string) {
 
 }
 
-export function consoleTemplate(id){
-	return `const doc = "${id  + 'result'}";\n`+
-		"const console = { clear: ()=> document.getElementById(doc).innerHTML = '',\n" +
+export function consoleTemplate(id, index){
+	if (index === 0) return `\nlet doc = "${id  + 'result'}";\n` +
+		"let console = { clear: ()=> document.getElementById(doc).innerHTML = '',\n" +
 		"log: (...arg) => document.getElementById(doc).innerHTML += `<span>>&ensp;${arg.join(' ')}</span>`,\n" +
 		"assert: (fact, ...arg) => !fact ? document.getElementById(doc).innerHTML += `<span class='err'>>&ensp;${arg.join(' ')}</span>` : fact ,\n" +
 		"error: (...arg) => document.getElementById(doc).innerHTML += `<span class='err'>>&ensp;${arg.join(' ')}</span>` , };\n" +
-		"console.clear()\n" 
-	}
-  
-
-
+		"console.clear()\n"
 	
-	// print.current = {
-	// 	log: (...e)=> setResult(result + `<span>${e.join(" ")}</span>`),
-	// 	clear: ()=>{ setResult(``), document.getElementById(id+'result').innerHTML = ''},
-	// 	assert: (fact, ...arg) => { if (!fact) setResult(result + `<span class="err">${arg.join(" ")}</span>`) },
-	// 	error: (...arg) => setResult(result + `<span class="err">${arg.join(" ")}</span>`),
-	//   }
+	else return `\nlet doc = "${id  + 'result'}";\n` +
+	"console = { clear: ()=> document.getElementById(doc).innerHTML = '',\n" +
+	"log: (...arg) => document.getElementById(doc).innerHTML += `<span>>&ensp;${arg.join(' ')}</span>`,\n" +
+	"assert: (fact, ...arg) => !fact ? document.getElementById(doc).innerHTML += `<span class='err'>>&ensp;${arg.join(' ')}</span>` : fact ,\n" +
+	"error: (...arg) => document.getElementById(doc).innerHTML += `<span class='err'>>&ensp;${arg.join(' ')}</span>` , };\n" +
+	"console.clear()\n"
+}
 
-	// print.current.clear()
-// export function consoleTemplate(id){
-// 	const oldConsole = console.log
-// 	console.log = (...e) => {
-// 		document.getElementById(id + 'result').innerHTML += `<span>>&ensp;${e.join(' ')}</span>`
-// 		oldConsole(...e)
+
+
+// function customConsole(id){
+// 	let doc = id  + 'result'
+// 	let DGEID = document.getElementById
+
+// 	let console = { clear: ()=> DGEID(doc).innerHTML = '',
+// 		id: id + 'result',
+// 		log: (...arg) => DGEID(doc).innerHTML += `<span>>&ensp;${arg.join(' ')}</span>`,
+// 		assert: (fact, ...arg) => !fact ? DGEID(doc).innerHTML += `<span class='err'>>&ensp;${arg.join(' ')}</span>` : fact ,
+// 		error: (...arg) => DGEID(doc).innerHTML += `<span class='err'>>&ensp;${arg.join(' ')}</span>`
 // 	}
+
+
+
+// 	return JSON.stringify(console)
 // }

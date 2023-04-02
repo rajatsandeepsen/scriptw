@@ -1,21 +1,39 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import Codespace from '@/components/codemirror'
-import { useState,useEffect } from 'react'
-
-
+import { useState, useEffect, useRef } from 'react'
 
 
 export default function Home() {
   const [array, setArray] = useState(null)
+  const mapper = useRef()
 
   useEffect(() => {
     fetch('/api/code')
     .then(res => res.json())
-    .then(data => setArray(data.array))
+    .then(data => {
+      setArray(mapper.current(data.array))
+    })
   }, [])
   
+  mapper.current = (array) => {
+    function previous(element,index, arr){
+      if (index === 0) return {...element, prev: ''}
+      else {
+        let string = arr.slice(0,index).map((e)=> e.init ).join("\n")
+        return {...arr[index], prev: string}
+      } 
+    }
+  
+    let newArr = []
+    array.forEach((e, i, arr) => {
+      newArr.push(previous(e, i, arr))
+    });
+  
+    return newArr
+  }
 
+  
   return (
     <>
       <Head>
@@ -32,7 +50,7 @@ export default function Home() {
         </header>
         <div className='container d-flex flex-column gap-5'>
           
-        {array ? array.map((e)=>( <Codespace data={e} /> )) : <div class="spinner-border text-white m-auto" role="status"><span class="sr-only"></span></div> }
+        {array ? array.map((e,i)=>( <Codespace data={e} index={i} setArrayMod={setArray} /> )) : <div class="spinner-border text-white m-auto" role="status"><span class="sr-only"></span></div> }
       
         </div>
       </main>

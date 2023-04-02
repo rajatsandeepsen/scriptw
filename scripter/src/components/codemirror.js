@@ -5,33 +5,30 @@ import { githubDark } from '@uiw/codemirror-theme-github';
 import { useEffect, useState, useRef } from 'react'
 import { consoleTemplate } from '@/functions/input';
 
-export default function Codespace({data}) {
-    const {init, name, output} = data
+function callRefCompute(e){
+  if (e.keyCode == 13 && e.shiftKey ){
+      e.preventDefault()
+      compute.current();
+  }
+}
+
+export default function Codespace({data, index, setArrayMod}) {
+    const {init, id, output, prev} = data
+
     const [codes, setCodes] = useState(init)
-    const [result, setResult ] = useState(output)
+    const [result, setResult] = useState(output)
     const compute = useRef()
-    // const print = useRef()
-    const id = name
 
 
-    compute.current = () => {    
-      let runable = consoleTemplate(id) + codes //.replace(/console/g,'print')
+    compute.current = () => {   
+      let runable = prev + consoleTemplate(id, index) + "\n" + codes 
       document.getElementById(id + 'result').innerHTML = ''
-      try { new Function(runable)() }
-      catch (e){ 
-        document.getElementById(id + 'result').innerHTML += `<span class='err'>>&ensp;${e}</span>`
-      }
-      finally { 
-        setResult(document.getElementById(id + 'result').innerHTML)
-      }
+
+      try { eval(runable) }
+      catch (e){ document.getElementById(id + 'result').innerHTML += `<span class='err'>>&ensp;${e}</span>` }
+      finally { setResult(document.getElementById(id + 'result').innerHTML) }
     }
 
-    function callRefCompute(e){
-        if (e.keyCode == 13 && e.shiftKey ){
-            e.preventDefault()
-            compute.current();
-        }
-    }
 
   return (
         <section className='d-flex flex-column align-items-center w-100 gap-3'>
