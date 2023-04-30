@@ -81,6 +81,7 @@ async function input(string) {
 			e.preventDefault()
 
 			console.log("got the value")
+			e.target.data.disabled = "disabled"
 			resolve(e.target.data.value)
 	
 		}, {once : true})

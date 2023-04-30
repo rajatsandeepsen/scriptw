@@ -2,10 +2,12 @@
 
 
 const array = [
-  {init: "console.log('hi1')",name: 'one', output: '<span>&gt; hi1</span><span>&gt; hi1</span><span>&gt; hi1</span><span>&gt; hi1</span>'},
-  {init: "console.error('hi2')",name: 'two', output: 'qwertyuio'},
+  {init: "input('hi').then(e=> console.log(e))",name: 'one', output: "<span class='console'>hi1</span><span class='console'>hi1</span><span class='console'>hi1</span><span class='console'>hi1</span>"},
+  {init: `
+  Promise.all([input('value 1'),input('value 2'),input('value 3')]).then(values => console.log(values))
+  `,name: 'two', output: 'qwertyuio'},
   {init: "console.did('hi3')",name: 'three', output: 'qwertyuio'},
-  {init: "console.log('hi4')",name: 'four', output: 'qwertyuio'},
+  {init: "console.err('hi4')",name: 'four', output: 'qwertyuio'},
   {init: "console.log('hi5')",name: 'five', output: 'qwertyuio'},
   {init: "console.log('hi6')",name: 'six', output: 'qwertyuio'},
 ]

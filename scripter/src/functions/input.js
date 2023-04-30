@@ -1,30 +1,46 @@
-export async function input(string) {
-	let id = string.replace(/ /g,'')
+// export async function input(string) {
+// 	let id = string.replace(/ /g,'')
 
-	const inputForm = `<form id="${id}"><input placeholder="${string}" type="text" name="data"></form>`
-	$('#preview').append(inputForm)
+// 	const inputForm = `<form id="${id}"><input placeholder="${string}" type="text" name="data"></form>`
+// 	$('#preview').append(inputForm)
 
-	return new Promise ((resolve, reject)=>{
-		let element = document.getElementById(id)
+// 	return new Promise ((resolve, reject)=>{
+// 		let element = document.getElementById(id)
 
-		element.addEventListener("submit",(e)=>{
-			e.preventDefault()
+// 		element.addEventListener("submit",(e)=>{
+// 			e.preventDefault()
 
-			console.log("got the value")
-			resolve(e.target.data.value)
+// 			console.log("got the value")
+// 			resolve(e.target.data.value)
 	
-		}, {once : true})
-	})
+// 		}, {once : true})
+// 	})
 
-}
+// }
 
 export function consoleTemplate(id){
 	return `const doc = "${id  + 'result'}";\n`+
 		"const console = { clear: ()=> document.getElementById(doc).innerHTML = '',\n" +
-		"log: (...arg) => document.getElementById(doc).innerHTML += `<span>>&ensp;${arg.join(' ')}</span>`,\n" +
-		"assert: (fact, ...arg) => !fact ? document.getElementById(doc).innerHTML += `<span class='err'>>&ensp;${arg.join(' ')}</span>` : fact ,\n" +
-		"error: (...arg) => document.getElementById(doc).innerHTML += `<span class='err'>>&ensp;${arg.join(' ')}</span>` , };\n" +
-		"console.clear()\n" 
+		"log: (...arg) => document.getElementById(doc).innerHTML += `<span class='console'>${arg.join(' ')}</span>`,\n" +
+		"assert: (fact, ...arg) => !fact ? document.getElementById(doc).innerHTML += `<span class='err'>{arg.join(' ')}</span>` : fact ,\n" +
+		"add: (...arg) => document.getElementById(doc).innerHTML += `<span class='console'>${arg.join('<br>')}</span>`,\n" +
+		"error: (...arg) => document.getElementById(doc).innerHTML += `<span class='err'>${arg.join(' ')}</span>` , };\n" +
+		"console.clear()\n"
+	}
+
+export function inputTemplate(){
+		return `
+		function input(string) { let id = string.replace(/ /g,'')\n`
+		+
+		"const inputForm = `<form class='codeinput' id='${id}'><input placeholder='${string}'  type='text' name='data'></form>`\n"
+		+
+		`console.add(inputForm)
+		return new Promise ((resolve, reject)=>{
+			document.getElementById(id).addEventListener("submit",(e)=>{ e.preventDefault()
+					alert("got the value")
+					e.target.data.disabled = "disabled"
+					resolve(e.target.data.value)
+				}, {once : true})})}\n`
 	}
   
 

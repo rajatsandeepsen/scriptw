@@ -38,8 +38,38 @@ body {
 
 .err {
   color: red;
+  display: flex;
+  &::before {
+    content: ">";
+    color: red;
+    margin: auto 9px
+  }
+}
+
+.console {
+  display: flex;
+  &::before {
+    content: ">";
+    color: #fff;
+    margin: auto 9px
+  }
 }
 
 code {
   color: #fff;
+}
+
+.codeinput {
+  input {
+    all: unset;
+    width: 160px;
+    height: 20px;
+    background-color: #010409;
+    border: 1px solid #2D3139;
+    padding: 4px 8px;
+    color: #fff;
+    &:hover, &:focus {
+      background-color: #2D3139;
+    }
+  }
 }

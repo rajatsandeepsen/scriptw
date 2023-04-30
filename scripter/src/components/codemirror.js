@@ -3,7 +3,7 @@ import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { githubDark } from '@uiw/codemirror-theme-github';
 import { useEffect, useState, useRef } from 'react'
-import { consoleTemplate } from '@/functions/input';
+import { consoleTemplate, inputTemplate } from '@/functions/input';
 
 export default function Codespace({data}) {
     const {init, name, output} = data
@@ -15,11 +15,12 @@ export default function Codespace({data}) {
 
 
     compute.current = () => {    
-      let runable = consoleTemplate(id) + codes //.replace(/console/g,'print')
+      let runable = consoleTemplate(id) + inputTemplate() + codes
+      console.log(runable)
       document.getElementById(id + 'result').innerHTML = ''
       try { new Function(runable)() }
       catch (e){ 
-        document.getElementById(id + 'result').innerHTML += `<span class='err'>>&ensp;${e}</span>`
+        document.getElementById(id + 'result').innerHTML += `<span class='err'>${e}</span>`
       }
       finally { 
         setResult(document.getElementById(id + 'result').innerHTML)
@@ -38,7 +39,7 @@ export default function Codespace({data}) {
           <div id={id} onKeyDown={callRefCompute} className={styles.codespace} tabIndex="0">
             <CodeMirror
             value={codes}
-            height='auto'
+            height='200'
             theme={githubDark}
             extensions={[javascript({ jsx: true })]}
             onChange={(value) => setCodes(value)}
