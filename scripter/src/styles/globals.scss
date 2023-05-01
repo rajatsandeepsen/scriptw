@@ -18,7 +18,10 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
+p {
+  padding: 0;
+  margin: 0;
+}
 body {
   background-color:  #0D1117;;
 }
@@ -36,22 +39,45 @@ body {
   outline: none;
 }
 
+.ͼ1 .cm-foldPlaceholder{
+  background-color: transparent;
+  border-color: transparent;
+}
+
+#shared {
+  .ͼ1o {
+  color: #6ce778;
+  }
+  .ͼ1n {
+    color: #a5d6ff;
+  }
+}
+
+.ͼ3 .cm-gutters {
+  background-color: #0D1117;
+}
 .err {
-  color: red;
+  color: #ff7b72;
   display: flex;
   &::before {
     content: ">";
-    color: red;
+    color: #ff7b72;
     margin: auto 9px
   }
 }
 
 .console {
   display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-left: 15px;
   &::before {
+    position: absolute;
+    left: -15px;
+    top: 0px;
     content: ">";
-    color: #fff;
-    margin: auto 9px
+    color: #6ce778;
+
   }
 }
 
@@ -62,7 +88,7 @@ code {
 .codeinput {
   input {
     all: unset;
-    width: 160px;
+    min-width: 160px;
     height: 20px;
     background-color: #010409;
     border: 1px solid #2D3139;

@@ -79,11 +79,10 @@ async function input(string) {
 
 		element.addEventListener("submit",(e)=>{
 			e.preventDefault()
-
-			console.log("got the value")
+			
+			e.target.data.placeholder = e.target.data.value
 			e.target.data.disabled = "disabled"
 			resolve(e.target.data.value)
-	
 		}, {once : true})
 	})
 

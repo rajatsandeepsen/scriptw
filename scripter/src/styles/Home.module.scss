@@ -30,13 +30,43 @@
 
 .Button{
   all: unset;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+
   background-color: #010409;
   border: 1px solid #2D3139;
   padding: .5rem 1rem;
+  display: flex;
+  gap: .3rem;
+  i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   &:hover{
     background-color: #25292D;
   }
+  &:active i,&:hover i{
+    animation: rotate 6s linear;
+  }
 }
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg); 
+    -moz-transform: rotate(0deg);    
+    transform:rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg); 
+    -moz-transform: rotate(360deg);    
+  }
+}
+
+
 
 .codespace {
   position: relative;
@@ -44,22 +74,29 @@
   border: 1px solid #2D3139;
   min-height: 200px;
   width: 100%;
-  padding-bottom: 25px ;
-  margin-bottom: 40px;
+  // padding-bottom: 25px ;
+  // margin-bottom: 40px;
 
   ul {
     position:absolute;
-    bottom: -40px;
-    left: 0;
+    bottom: -3px;
+    right: 10px;
     padding: 0;
     z-index: 10;
     color: white;
     display: flex;
     gap: 2rem;
     justify-content: center;
-    width: 100%;
+    // width: 100%;
     transition: all .3s ease-in-out;
   }
   
 }
 
+.results {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}

@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import Codespace from '@/components/codemirror'
+import SharedDom from '@/components/statemanage'
 import { useState,useEffect } from 'react'
 
 
@@ -28,11 +29,16 @@ export default function Home() {
         <header className='container d-flex flex-column align-items-start'>
           <h1><i className="bi bi-code"/></h1>
           <h1>Scripter</h1>
-          <p>I hate Python, so build a jupyter notebook for Javascript</p>
+          <p className='lead'>I hate Python, so build a jupyter notebook for Javascript</p>
         </header>
         <div className='container d-flex flex-column gap-5'>
           
-        {array ? array.map((e)=>( <Codespace data={e} /> )) : <div class="spinner-border text-white m-auto" role="status"><span class="sr-only"></span></div> }
+          <SharedDom />
+          {
+            array ?
+                array.map((e)=>( <Codespace data={e} /> ))
+                : <div class="spinner-border text-white m-auto" role="status"><span class="sr-only"></span></div>
+          }
       
         </div>
       </main>
