@@ -9,7 +9,11 @@ const files = [
         z: 30
       },
 
-      fileName: 'file1'
+      fileName: 'file1',
+      fileTitle: 'Scripter',
+      codespaceID: 'file1',
+      fileDescription: `I hate Python, so i build a jupyter notebook for Javascript <br> Browser only, No Nodejs, No Jupyter Notebook Kernal, No Server required <br><br>
+      <iframe src="https://ghbtns.com/github-btn.html?user=rajatsandeepsen&type=follow&count=true" frameborder="0" scrolling="0" width="230" height="30" title="GitHub"></iframe>`,
     },
   ]
 

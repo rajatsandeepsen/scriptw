@@ -2,16 +2,16 @@ import styles from '@/styles/Home.module.scss'
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { githubDark } from '@uiw/codemirror-theme-github';
-import { useEffect, useState, useRef } from 'react'
+import { useState, useRef } from 'react'
+import { v4 as uuidv4 } from 'uuid';
 import { consoleTemplate, inputTemplate, sharedJsonDom } from '@/functions/input';
 
 export default function Codespace({data}) {
-    const {init, name, output} = data
+    const {init, output} = data
     const [codes, setCodes] = useState(init)
     const [result, setResult ] = useState(output)
     const compute = useRef()
-    // const print = useRef()
-    const id = name
+    const id = uuidv4()
 
 
     compute.current = () => {    
@@ -44,13 +44,10 @@ export default function Codespace({data}) {
             onChange={(value) => setCodes(value)}
             />
             <ul>
-                {/*<button className={styles.Button} >Code <i className="bi bi-code"/></button>*/}
-                {/*<button className={styles.Button} >Markdown <i className="bi bi-pen"/></button>*/}
-                <button onClick={compute.current} className={styles.Button}>Run <i className="bi bi-gear"/></button>
+                <button onClick={compute.current} className={`${styles.Button} ${styles.rotateLogo} ${"runButton"}`}>Run <i className="bi bi-gear"/></button>
             </ul>
           </div>
-          <code id={id + 'result'} className={styles.results} dangerouslySetInnerHTML={{__html : result === ''? '' : result}}>
-          </code>
+          <code id={id + 'result'} className={styles.results} dangerouslySetInnerHTML={{__html : result === ''? '' : result}} />
         </section>
   )
 }

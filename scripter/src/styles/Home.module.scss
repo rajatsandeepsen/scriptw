@@ -47,6 +47,9 @@
   &:hover{
     background-color: #25292D;
   }
+}
+
+.rotateLogo {
   &:active i,&:hover i{
     animation: rotate 6s linear;
   }
@@ -79,8 +82,8 @@
 
   ul {
     position:absolute;
-    bottom: -3px;
-    right: 10px;
+    bottom: 1rem;
+    right: 1rem;
     padding: 0;
     z-index: 10;
     color: white;
@@ -106,5 +109,12 @@
   text-align: end;
   & span {
     color: var(--github-green);
+  }
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap-reverse;
+  ul {
+    display: flex;
+    gap: 1rem;
   }
 }
