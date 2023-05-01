@@ -9,8 +9,17 @@ import { useState,useEffect } from 'react'
 
 export default function Home() {
   const [array, setArray] = useState(null)
+  const [file, setFile] = useState(null)
 
   useEffect(() => {
+    fetch('/api/header/file1')
+    .then(res => res.json())
+    .then(fileRes => {
+      setFile(()=>fileRes)
+      console.log(fileRes)
+    })
+    
+
     fetch('/api/code')
     .then(res => res.json())
     .then(data => setArray(data.array))
@@ -33,7 +42,7 @@ export default function Home() {
         </header>
         <div className='container d-flex flex-column gap-5'>
           
-          <SharedDom />
+          {file ? <SharedDom file={file} /> : <div class="spinner-border text-white m-auto" role="status"><span class="sr-only"></span></div>}
           {
             array ?
                 array.map((e)=>( <Codespace data={e} /> ))
