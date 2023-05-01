@@ -43,9 +43,27 @@ export function inputTemplate(){
 				}, {once : true})})}\n`
 	}
   
+export function sharedJsonDom(){
+	return `
+	const get = () => JSON.parse(document.querySelector('[data-language=json]').innerText)
+	const set = (setter, value) => {
+		let returner = get()
+		returner[setter] = value
+		document.querySelector('[data-language=json]').innerText = JSON.stringify(returner, undefined, 4)}
+	const setFunc = (setter, func) => set(setter, (func).toString())
+	const getFunc = (funcName) => eval("(" + {...get()}[funcName] + ")")\n`
+}
 
 
-	
+// const get = () => {
+// 	let temp = document.querySelector('[data-language=json]').innerText
+// 	return JSON.parse(temp)
+//   }
+// `
+
+
+
+
 	// print.current = {
 	// 	log: (...e)=> setResult(result + `<span>${e.join(" ")}</span>`),
 	// 	clear: ()=>{ setResult(``), document.getElementById(id+'result').innerHTML = ''},

@@ -2,13 +2,15 @@
 
 
 const files = [
-    {init: {
-      name: 'Jane Doe',
-      city: 'New York',
-      lastContacts: ['2022-01-01', '2022-03-21', '2022-04-11', '2022-05-15'],
-      hi: {name: 'help'}, 
-      number: 123456789,
-  },fileName: 'file1',},
+    {
+      init:{
+        x: 10,
+        y: 20,
+        z: 30
+      },
+
+      fileName: 'file1'
+    },
   ]
 
 // const values = JSON.stringify(dataValue, undefined, 4)
