@@ -1,5 +1,5 @@
 import Codespace from '@/components/codemirror'
-import { useEffect, useState } from 'react'
+import { useEffect, useImperativeHandle,forwardRef, useState } from 'react'
 import useSwr from 'swr'
 import styles from '@/styles/Home.module.scss'
 
@@ -14,11 +14,15 @@ function removeElementAtIndex(arr, index) {
 
 
 const fetcher = (url) => fetch(url).then((res) => res.json())
-const CodeSpaceContainer = ({fileName}) => {
-
+const CodeSpaceContainer = forwardRef((props, ref) => {
+    const fileName = props.fileName
     const {data: code, error: codeError, isLoading: codeLoading} = useSwr(`api/code/${fileName}`, fetcher)
     const [cells, setCells] = useState([])
+
     
+    useImperativeHandle(ref, () => ({
+        deleteAllCell: () => setCells([])
+    }))
 
     useEffect(() => {
         if (code) setCells(() => code)
@@ -46,13 +50,19 @@ const CodeSpaceContainer = ({fileName}) => {
                          : <span className='d-flex flex-column align-items-center'><p className='text-white-50'>Create new cell to start coding</p>
                             <i className="bi bi-arrow-down text-white-50"/></span>
         }
-        <ul>
+        <ul className='d-flex gap-3'>
           <button onClick={newCell} className={styles.Button}>
             Add Cell <i className="bi bi-plus-square-fill"></i>
+          </button>
+          <button  disabled className={styles.Button}>
+            Markdown <i className="bi bi-hash"></i>
+          </button>
+          <button disabled  className={styles.Button}>
+            Web Builder <i className="bi bi-filetype-html"></i>
           </button>
         </ul>
         </>
         )
-}
+})
  
 export default CodeSpaceContainer;

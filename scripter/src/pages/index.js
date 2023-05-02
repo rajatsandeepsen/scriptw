@@ -14,7 +14,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className='text-white'>
-        <section className='container d-flex my-5 flex-column gap-3 align-items-center'>
+        <section className='container d-flex my-5 flex-column gap-5 align-items-center'>
           <ScripterFile/>
         </section>
       </main>

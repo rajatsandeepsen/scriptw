@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 
 
 
-export default function SharedDom({file}) {
+export default function SharedDom({file, func}) {
   const [codes, setCodes] = useState('')
   const [reableOnly, setReable] = useState(false)
   const [isAllRun, setAllRun] = useState(false)
@@ -17,6 +17,11 @@ export default function SharedDom({file}) {
       setTimeout(()=> e.click(), 300)
     })
     setTimeout(()=> setAllRun(false), 1000)
+  }
+
+  function clearJSON(){
+    let text = "Are you sure you want to clear all the JSON?"
+    if (confirm(text)) setCodes('')
   }
 
     useEffect(() => {
@@ -41,7 +46,7 @@ export default function SharedDom({file}) {
            <CodeMirror id='shared'
            readOnly= {reableOnly}
             value={codes}
-            height='200'
+            height='200px'
             theme={githubDark}
             extensions={[json()]}
             onChange={(value) => setCodes(value)}
@@ -61,6 +66,8 @@ export default function SharedDom({file}) {
 
               <button disabled={true} title='Ctrl + S' className={styles.Button}>Save <i className="bi bi-cloud-fill"/></button>
               <button disabled={true} title='Ctrl + F' className={styles.Button}>Fork <i className="bi bi-option"/></button>
+              <button onClick={func} title='' className={styles.Button}>Delete All Cells <i className="bi bi-trash-fill"/></button>
+              <button onClick={clearJSON} title='' className={styles.Button}>Clear JSON <i className="bi bi-eraser-fill"/></button>
             </ul>
           </div>
         </section>
