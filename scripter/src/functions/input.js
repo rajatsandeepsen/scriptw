@@ -31,10 +31,11 @@ export function consoleTemplate(id){
 	}
 
 export function inputTemplate(){
-		return `
-		function input(string) { let id = string.replace(/ /g,'')\n` +
+		return `const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+		async function input(string) { let id = string.replace(/ /g,'')\n` +
 		"const inputForm = `<form class='codeinput' id='${id}'><input placeholder='${string}'  type='text' name='data'></form>`\n"
 		+`console.add(inputForm)
+		await sleep(10)
 		return new Promise ((resolve, reject)=>{
 			document.getElementById(id).addEventListener("submit",(e)=>{ e.preventDefault()
 					e.target.data.placeholder += " = " + e.target.data.value

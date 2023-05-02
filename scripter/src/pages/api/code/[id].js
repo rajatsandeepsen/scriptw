@@ -1,4 +1,10 @@
+import { v4 as uuidv4 } from 'uuid';
+
 const array = [
+    {init: `let x = 10 + 20
+    console.log(x)`, output: '', cellID: uuidv4()},
+    {init: `2`, output: 'something', cellID: uuidv4()},
+    {init: `input("skdnfjsndkfnksnd").then(e=> console.log(e))`, output: '', cellID: uuidv4()},
   ]
 
 

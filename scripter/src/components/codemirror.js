@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { consoleTemplate, inputTemplate, sharedJsonDom } from '@/functions/input';
 
 export default function Codespace({index, data, func}) {
-    const {init, output} = data
+    const {init, output, cellID} = data
     const {deleteFunc, clearFunc} = func
 
 
@@ -17,12 +17,13 @@ export default function Codespace({index, data, func}) {
     
     
     const compute = useRef()
-    const id = uuidv4()
+    const id = cellID
 
     compute.current = () => {    
       setRunning(true)
 
       let runable = consoleTemplate(id) + inputTemplate() + sharedJsonDom() + codes
+      console.log(runable)
       document.getElementById(id + 'result').innerHTML = ''
       try { new Function(runable)() }
       catch (e){ 
