@@ -11,6 +11,7 @@
 :root {
   --github-green: #6ce778;
   --github-red: #ff7b72;
+  --github-blue: #a5d6ff;
 }
 
 html,
@@ -63,7 +64,7 @@ body {
   color: var(--github-green);
   }
   .ͼ1n {
-    color: #a5d6ff;
+    color: var(--github-blue);
   }
 }
 
@@ -119,6 +120,7 @@ footer {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   padding: 3rem 0;
   background-color: #010409;

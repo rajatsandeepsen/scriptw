@@ -27,6 +27,7 @@ finally { console.log("try again?") }
     
 // another console methods`, output: '', type:'cell', cellID: uuidv4()},
 {init: "let {url} = get() // reading from JSON\n\nlet HTML = `<img src=${url} alt='img loading?' width='500px'>`\n\nconsole.add(HTML)\n// DOM editor", output: '', type:'cell', cellID: uuidv4()},
+{init: "// let bring up a whole website\nlet {sus} = get()\n\nlet HTML = `<iframe src=${sus} height='300px'></iframe>`\n\nconsole.add(HTML)", output: '', type:'cell', cellID: uuidv4()},
 {init: `// keyboard shortcuts (awai)
 
 // Execute the current cell (Shift + Enter)
@@ -54,18 +55,26 @@ set('data', data)
 {init: `let {data} = get() // now access here
 
 console.log(JSON.stringify(data))`, output: '', type:'cell', cellID: uuidv4()},
-{init: "// let bring up a whole website\nlet {sus} = get()\n\nlet HTML = `<iframe src=${sus} height='300px'></iframe>`\n\nconsole.add(HTML)", output: '', type:'cell', cellID: uuidv4()},
+
 {init: `// store functions & use it on next cell
 
 function findSum(a, b){ return a + b }
+const findSquare = (a,b) => a ** b
 
-setFunc("findSum", findSum)`, output: '', type:'cell', cellID: uuidv4()},
+setFunc("findSum", findSum)
+setFunc("findSquare", findSquare)`, output: '', type:'cell', cellID: uuidv4()},
 {init: `// read function
 let findSum = getFunc("findSum")
 
 let result = findSum(10, 13)
 console.log(result)`, output: '', type:'cell', cellID: uuidv4()},
-{init: ``, output: '', type:'cell', cellID: uuidv4()},
+{init: `async function someFunc(){
+  await sleep(1000) // in-build thread sleep
+  console.log("After thread sleeping")
+}
+
+someFunc()`, output: '', type:'cell', cellID: uuidv4()},
+
   ]
 
 

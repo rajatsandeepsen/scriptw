@@ -37,16 +37,13 @@ export default function SharedDom({file, func}) {
 
     }, []);
 
-    
-    
-
   return (
         <section className='d-flex flex-column position-relative w-100 gap-3'>
-          <div className={styles.codespace}>
+          <div className={styles.codespace} data-running={isAllRun ? '△' : '▲'}>
            <CodeMirror id='shared'
            readOnly= {reableOnly}
             value={codes}
-            height='200px'
+            min-height='200px'
             theme={githubDark}
             extensions={[json()]}
             onChange={(value) => setCodes(value)}

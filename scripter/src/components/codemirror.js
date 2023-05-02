@@ -3,7 +3,6 @@ import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { githubDark } from '@uiw/codemirror-theme-github';
 import { useState, useRef } from 'react'
-import { v4 as uuidv4 } from 'uuid';
 import { consoleTemplate, inputTemplate, sharedJsonDom } from '@/functions/input';
 
 export default function Codespace({index, data, func}) {
@@ -17,11 +16,12 @@ export default function Codespace({index, data, func}) {
     
     
     const compute = useRef()
+    const noOfTimes = useRef(0)
     const id = cellID
 
     compute.current = () => {    
       setRunning(true)
-
+      noOfTimes.current += 1
       let runable = consoleTemplate(id) + inputTemplate() + sharedJsonDom() + codes
       console.log(runable)
       document.getElementById(id + 'result').innerHTML = ''
@@ -43,16 +43,21 @@ export default function Codespace({index, data, func}) {
         }
     }
 
+
   return (
         <section className='d-flex flex-column align-items-center w-100 gap-3'>
-          <div id={id} onKeyDown={callRefCompute} className={styles.codespace} tabIndex="0">
+          <div id={id} onKeyDown={callRefCompute} 
+               className={styles.codespace} 
+               data-running={isRunning ? '✱' : noOfTimes.current} 
+               tabIndex="0">
+
             <CodeMirror
             value={codes}
-            height='200px'
+            min-height='200px'
             theme={githubDark}
             extensions={[javascript({ jsx: true })]}
-            onChange={(value) => setCodes(value)}
-            />
+            onChange={(value) => setCodes(value)}/>
+
             <ul>
                 {/*<button title='del' onClick={()=> deleteFunc(index)} className={styles.Button}>
                   Cell <i className="bi bi-trash-fill"/>
@@ -63,7 +68,7 @@ export default function Codespace({index, data, func}) {
                 <button disabled={isRunning} title='Shift + Enter' onClick={compute.current} className={`${styles.Button} ${"runButton"}`}>
                   { isRunning ? 
                                 <span className='d-flex gap-1 align-items-center'>Executing <i className='spinner-border spinner-border-sm'></i></span> 
-                              : <span className='d-flex gap-1'>Run <i className="bi bi-gear"/></span> }
+                              : <span className='d-flex gap-1 align-items-center'>Run <i className="bi bi-gear-fill"/></span> }
                 </button>
             </ul>
           </div>
