@@ -1,4 +1,3 @@
-import Codespace from '@/components/codemirror'
 import SharedDom from '@/components/statemanage'
 import CodeSpaceContainer from './codespace'
 import useSwr from 'swr'
@@ -12,7 +11,7 @@ export default function ScripterFile() {
     if (fileLoading) return <div className="spinner-border text-white m-auto" role="status"><span className="sr-only"></span></div>
     if (file === null) return <p>404 File not Found</p>
 
-    
+
 
     return ( 
         <>

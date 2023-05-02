@@ -1,10 +1,4 @@
 const array = [
-    {init: ``, output: ''},
-    {init: ``, output: ''},
-    {init: ``, output: ''},
-    {init: ``, output: ''},
-    {init: ``, output: ''},
-    {init: ``, output: ''},
   ]
 
 

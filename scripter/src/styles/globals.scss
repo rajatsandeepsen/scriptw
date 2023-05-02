@@ -34,6 +34,10 @@ ul {
 }
 body {
   background-color:  #0D1117;;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .bg-black {
@@ -106,6 +110,22 @@ code {
     color: #fff;
     &:hover, &:focus {
       background-color: #2D3139;
+    }
+  }
+}
+
+footer {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 0;
+  background-color: #010409;
+  color: rgba(255, 255, 255, 0.553);
+  a {
+    color: white;
+    &:hover {
+      color: var(--github-green);
     }
   }
 }
