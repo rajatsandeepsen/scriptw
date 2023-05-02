@@ -7,7 +7,7 @@
 </head>
 <body>
 	<header>
-		<h1>Scripter</h1>
+		<h1 data-language=json>Scripter</h1>
 	</header>
 	<main>
 		<div class="editor">
@@ -17,6 +17,11 @@
 			</div>
 		</div>
 	</main>
-	<script src="/script.js"></script>
+	<script src="/script.js">
+		let x = document.querySelector('[data-language=json]').innerText
+		// console.log(JSON.parse(domData))
+		console.log(x)
+
+	</script>
 </body>
 </html>

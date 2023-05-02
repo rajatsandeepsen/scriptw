@@ -1,47 +1,27 @@
-# scripter
-i hate python, so i build a jupyter notebook for javascript
-
-
-https://stackoverflow.com/questions/1340872/how-to-get-javascript-caller-function-line-number-and-caller-source-url/37081135#37081135
-
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/eval
-
-https://github.com/WebDevSimplified/React-CodePen-Clone/tree/master
-
-
 ```
-var regex = /\((.*?)\)/;
-    let x =1
-	var strToMatch = `console.log(x + 1)`
-	var matched = regex.exec(strToMatch);
-	console.log(eval(matched[1]))
-	eval(strToMatch)
-```
+import type { User } from '../interfaces'
+import useSwr from 'swr'
+import Link from 'next/link'
 
+const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
-```
-console.stdlog = console.log.bind(console);
-console.logs = [];
-console.log = function(){
-    console.logs.push(Array.from(arguments));
-    console.stdlog.apply(console, arguments);
+export default function Index() {
+  const { data, error, isLoading } = useSwr<User[]>('/api/users', fetcher)
+
+  if (error) return <div>Failed to load users</div>
+  if (isLoading) return <div>Loading...</div>
+  if (!data) return null
+
+  return (
+    <ul>
+      {data.map((user) => (
+        <li key={user.id}>
+          <Link href="/user/[id]" as={`/user/${user.id}`}>
+            {user.name ?? `User ${user.id}`}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  )
 }
-```
-
-```
-
-	
-	// js = js.replace("console.log", "alert");
-
-	// var regex = /\((.*?)\)/;
-	// var strToMatch = "This is a test string (more or less)";
-	// var matched = regex.exec(strToMatch);
-	// console.log(matched[1]);
-
-	// var content = template(jsEditor.value);
-```
-
-
-```
-onInput={()=>hljs.highlightAll()}
 ```

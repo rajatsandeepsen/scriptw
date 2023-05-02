@@ -40,13 +40,28 @@
   display: flex;
   gap: .3rem;
   i {
+    margin-left: .3rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: var(--github-green);
   }
   &:hover{
     background-color: #25292D;
   }
+  &:disabled{
+    color: #2D3139;
+    cursor: not-allowed;
+    i {
+      opacity: 50%;
+    }
+    &:hover {
+      background-color: #010409;
+    }
+  }
+}
+
+.rotateLogo {
   &:active i,&:hover i{
     animation: rotate 6s linear;
   }
@@ -74,20 +89,29 @@
   border: 1px solid #2D3139;
   min-height: 200px;
   width: 100%;
-  // padding-bottom: 25px ;
-  // margin-bottom: 40px;
-
+  display: flex;
+  flex-direction: column;
+  
+  position: relative;
+  &::before{
+    content: '〔 'attr(data-running) ' 〕';
+    color: var(--github-green);
+    position: absolute;
+    top: 0;
+    left: -40px;
+    transform: translate(-50%, 0);
+  }
   ul {
     position:absolute;
-    bottom: -3px;
-    right: 10px;
+    bottom: 1rem;
+    right: 1rem;
     padding: 0;
     z-index: 10;
     color: white;
     display: flex;
-    gap: 2rem;
-    justify-content: center;
-    // width: 100%;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-end;
     transition: all .3s ease-in-out;
   }
   
@@ -100,3 +124,17 @@
   flex-direction: column;
   gap: 3px;
 }
+
+.domStyle {
+  width: 100%;
+  text-align: end;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap-reverse;
+  ul {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+}
+

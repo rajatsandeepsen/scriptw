@@ -8,6 +8,12 @@
   margin: 0;
 }
 
+:root {
+  --github-green: #6ce778;
+  --github-red: #ff7b72;
+  --github-blue: #a5d6ff;
+}
+
 html,
 body {
   max-width: 100vw;
@@ -22,8 +28,17 @@ p {
   padding: 0;
   margin: 0;
 }
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 body {
   background-color:  #0D1117;;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .bg-black {
@@ -46,10 +61,10 @@ body {
 
 #shared {
   .ͼ1o {
-  color: #6ce778;
+  color: var(--github-green);
   }
   .ͼ1n {
-    color: #a5d6ff;
+    color: var(--github-blue);
   }
 }
 
@@ -57,12 +72,13 @@ body {
   background-color: #0D1117;
 }
 .err {
-  color: #ff7b72;
+  color: var(--github-red);
   display: flex;
   &::before {
     content: ">";
-    color: #ff7b72;
-    margin: auto 9px
+    color: var(--github-red);
+    // margin: auto 9px
+    margin-right: 7px;
   }
 }
 
@@ -76,7 +92,7 @@ body {
     left: -15px;
     top: 0px;
     content: ">";
-    color: #6ce778;
+    color: var(--github-green);
 
   }
 }
@@ -96,6 +112,23 @@ code {
     color: #fff;
     &:hover, &:focus {
       background-color: #2D3139;
+    }
+  }
+}
+
+footer {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 0;
+  background-color: #010409;
+  color: rgba(255, 255, 255, 0.553);
+  a {
+    color: white;
+    &:hover {
+      color: var(--github-green);
     }
   }
 }
