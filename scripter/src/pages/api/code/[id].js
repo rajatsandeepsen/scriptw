@@ -26,7 +26,7 @@ catch(e){ console.error(e) }
 finally { console.log("try again?") }
     
 // another console methods`, output: '', type:'cell', cellID: uuidv4()},
-{init: "let {url} = get() // reading from JSON\n\nlet HTML = `<img src=${url} alt='img loading?' width='500px'>`\n\nconsole.add(HTML)\n// DOM editor", output: '', type:'cell', cellID: uuidv4()},
+{init: "let {url} = get() // reading from JSON\n\nlet HTML = `<img src=${url} alt='img loading?' width='100%'>`\n\nconsole.add(HTML)\n// DOM editor", output: '', type:'cell', cellID: uuidv4()},
 {init: "// let bring up a whole website\nlet {sus} = get()\n\nlet HTML = `<iframe src=${sus} height='300px'></iframe>`\n\nconsole.add(HTML)", output: '', type:'cell', cellID: uuidv4()},
 {init: `// keyboard shortcuts (awai)
 

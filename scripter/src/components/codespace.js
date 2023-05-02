@@ -50,7 +50,7 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
                          : <span className='d-flex flex-column align-items-center'><p className='text-white-50'>Create new cell to start coding</p>
                             <i className="bi bi-arrow-down text-white-50"/></span>
         }
-        <ul className='d-flex gap-3'>
+        <ul className='d-flex gap-3 flex-wrap'>
           <button onClick={newCell} className={styles.Button}>
             Add Cell <i className="bi bi-plus-square-fill"></i>
           </button>
