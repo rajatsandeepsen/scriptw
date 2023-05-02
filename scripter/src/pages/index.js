@@ -10,12 +10,13 @@ export default function Home() {
       <Head>
         <title>ScriptW</title>
         <meta property="og:image" content="https://scriptw.vercel.app/scripter.svg" />
-        <meta property="og:title" content="Jupyter Notebook for Javascript" />
-        <meta property="og:description" content="Jupyter Notebook for Javascript" />
+        <meta property="og:title" content="Notebook for Javascript" />
+        <meta property="og:description" content="In-Browser Jupyter Notebook Alternative for JS" />
         <meta property="og:url" content="https://scriptw.vercel.app/" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="ScriptW" />
         <meta property="og:locale" content="en_US" />
+
         <meta name="keywords" content="Rajat Sandeep, Rajat, Rajat Sandeep Sen, jupyter, notebook, javascript, js" />
         <meta name="author" content="Rajat Sandeep" />
         <meta name="robots" content="index, follow" />
@@ -26,11 +27,11 @@ export default function Home() {
         <meta name="twitter:card" content="summary_large_image"/>
         <meta property="twitter:domain" content="scriptw.vercel.app"/>
         <meta property="twitter:url" content="https://scriptw.vercel.app/"/>
-        <meta name="twitter:title" content="ScriptW"/>
+        <meta name="twitter:title" content="ScriptW | In-Browser Jupyter Notebook Alternative for JS"/>
         <meta name="twitter:description" content="Jupyter Notebook for Javascript"/>
         <meta name="twitter:image" content="https://scriptw.vercel.app/scripter.svg"/>
 
-        <meta name="description" content="I hate Python, so I build a Jupyter Notebook for Javascript" />
+        <meta name="description" content="In-Browser Jupyter Notebook Alternative for JS" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/scripter.svg" />
       </Head>
