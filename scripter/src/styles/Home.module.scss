@@ -140,8 +140,9 @@
 }
 
 .WebBuilder {
-  width: calc(7 / 8 * 100vw);
-  height: calc(7 / 8 * 100vh);
+  width: calc(9 / 10 * 100vw);
+  height: calc(9 / 10 * 100vh);
+  margin: 0 auto;
   position: relative;
   gap: 1rem;
   overflow: hidden;
@@ -181,11 +182,14 @@
   flex-direction: column;
   main {
     // resize: horizontal;
+    max-height: 300px;
+    overflow-y: scroll;
     flex-direction: row;
   }
 
   iframe {
-    // resize:vertical;
+    resize:vertical;
+    min-height: 500px;
   }
 }
 
@@ -198,6 +202,15 @@
   }
 
   iframe {
-    // resize:horizontal;
+    resize:horizontal;
   }
+}
+
+@media (width < 768px) {
+ .WebBuilder {
+  main {
+    display: none;
+  }
+ }
+  
 }

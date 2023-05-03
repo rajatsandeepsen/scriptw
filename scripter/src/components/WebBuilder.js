@@ -5,15 +5,14 @@ import { css } from '@codemirror/lang-css';
 import { html } from '@codemirror/lang-html';
 import { githubDark } from '@uiw/codemirror-theme-github';
 import { useState,useEffect } from 'react';
-import { consoleTemplate, inputTemplate, sharedJsonDom } from '@/functions/input';
-
-import { v4 as uuidv4 } from 'uuid';
+import { consoleTemplate, sharedJsonDom } from '@/functions/input';
+import {isMobile} from 'react-device-detect';
 
 const WebBuilder = ({index, data, func}) => {
     const {init, output, HTML, CSS, cellID} = data
     
     const [mobileView, viewSet ] = useState(true)
-    const [codeView, codeViewSet ] = useState(true)
+    const [codeView, codeViewSet ] = useState(!isMobile)
 
 
     const [htmlCode, setHtmlCode] = useState(HTML)
@@ -26,7 +25,7 @@ const WebBuilder = ({index, data, func}) => {
     useEffect(() => {
         runCode()
     }, [htmlCode, cssCode]);
-
+    
     function runCode(){
         let preScript = `<script> ${consoleTemplate(id) + sharedJsonDom()}<\/script>`
         let style = `<style>${cssCode}</style>`
@@ -41,6 +40,7 @@ const WebBuilder = ({index, data, func}) => {
     }
     return ( 
         <section className='d-flex flex-column gap-3'>
+            {isMobile && <p className='text-center lead text-white-50'>use desktop for better experiance</p>}
             <div className={`${styles.WebBuilder} ${mobileView ? styles.MobileView : styles.DesktopView}`}>
 
 
@@ -49,22 +49,22 @@ const WebBuilder = ({index, data, func}) => {
                     
                         <li>
                             <CodeMirror theme={githubDark} extensions={[html()]}
-                                value={htmlCode} width='100%' onChange={(value)=> setHtmlCode(value)}/>
+                                value={htmlCode} onChange={(value)=> setHtmlCode(value)}/>
                         </li>
                         <li>
                             <CodeMirror theme={githubDark} extensions={[css()]}
-                                value={cssCode} width='100%' onChange={(value)=> setCssCode(value)}/>
+                                value={cssCode} onChange={(value)=> setCssCode(value)}/>
                         </li>
                         <li>
                             <CodeMirror theme={githubDark} 
                                 extensions={[javascript()]}
-                                value={jsCode} width='100%' onChange={(value)=> setJsCode(value)}/>
+                                value={jsCode} onChange={(value)=> setJsCode(value)}/>
                         </li>
 
                     
                 </main>
             </div>
-            <ul className='container ms-0 px-0 d-flex gap-3 flex-wrap w-100 align-items-start'>
+            <ul className='container ms-md-0 px-md-0 d-flex gap-3 flex-wrap w-100 align-items-start'>
                     <button onClick={() => viewSet((mobileView)=> !mobileView)} className={styles.Button}>
                         View <i className="bi bi-grid-1x2-fill"/>
                     </button>

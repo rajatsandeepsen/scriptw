@@ -12,8 +12,16 @@
   --github-green: #6ce778;
   --github-red: #ff7b72;
   --github-blue: #a5d6ff;
+  --github-blue2: #79c0ff;;
   --github-border: 1px solid #2D3139;
   --github-bg:#010409;
+  --github-grey: #36334280;
+
+
+  --autocomplete-width: 250px;
+  --autocomplete-height: 100px;
+
+
 }
 
 html,
@@ -44,14 +52,9 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 0px;
+  height: 0px;
 }
-div {
-  ::-webkit-scrollbar {
-  width: 3px;
-  height: 3px;
-}}
 
 ::-webkit-scrollbar-track { 
   border-radius: 10px;
@@ -60,10 +63,10 @@ div {
 }
  
 ::-webkit-scrollbar-thumb {
-  background: var(--github-green); 
+  background: var(--github-blue); 
   border-radius: 10px;
   &:hover {
-    background: var(--github-blue); 
+    background: var(--github-blue2); 
   }
 }
 
@@ -72,10 +75,20 @@ div {
 }
 
 .cm-tooltip-autocomplete {
-  // background-color: #6ce778!important;
-  min-width: 200px;
-  min-height: 60px;
-  overflow: hidden;
+  background-color: var(--github-bg)!important;
+  border: var(--github-border);
+  min-width: var(--autocomplete-width);
+  min-height: var(--autocomplete-height);
+  display: flex;
+  div {
+    width: 100%;
+    height: 100%;
+  }
+
+}
+
+.cm-theme, .cm-scroller,.cm-editor, .cm-gutters {
+  min-height: 100%;
 }
 
 .ͼ1l {

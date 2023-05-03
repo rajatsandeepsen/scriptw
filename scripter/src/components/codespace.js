@@ -46,15 +46,15 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
 
     const PageButtons = ()=>{
       return (
-        <ul className='d-flex gap-3 flex-wrap'>
+        <ul className='container d-flex justify-content-center gap-3 flex-wrap'>
           <button onClick={()=> newCell('cell')} className={styles.Button}>
             Add Cell <i className="bi bi-plus-square-fill"></i>
           </button>
-          <button  disabled className={styles.Button}>
-            Markdown <i className="bi bi-hash"></i>
-          </button>
           <button onClick={()=> newCell('web')}  className={styles.Button}>
             Web Builder <i className="bi bi-filetype-html"></i>
+          </button>
+          <button  disabled className={styles.Button}>
+            Markdown <i className="bi bi-hash"></i>
           </button>
         </ul>
       )

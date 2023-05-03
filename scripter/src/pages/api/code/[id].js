@@ -34,7 +34,11 @@ finally { console.log("try again?") }
 // Execute all the cells (Ctrl + Enter)
 // Append new cell (Ctrl + N)
 
-// available all VScode shortcuts`, output: '', type:'cell', cellID: uuidv4()},
+// available all VScode shortcuts
+
+// auto completion 
+// eg: type \`for\` and Enter ↩ 
+`, output: '', type:'cell', cellID: uuidv4()},
 
 {init: `let {x, y, z} = get()
 
