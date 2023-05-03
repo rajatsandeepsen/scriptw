@@ -12,6 +12,8 @@
   --github-green: #6ce778;
   --github-red: #ff7b72;
   --github-blue: #a5d6ff;
+  --github-border: 1px solid #2D3139;
+  --github-bg:#010409;
 }
 
 html,
@@ -41,15 +43,45 @@ body {
   flex-direction: column;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+div {
+  ::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}}
+
+::-webkit-scrollbar-track { 
+  border-radius: 10px;
+  background: #000; 
+  
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: var(--github-green); 
+  border-radius: 10px;
+  &:hover {
+    background: var(--github-blue); 
+  }
+}
+
 .bg-black {
   background: #010409;
+}
+
+.cm-tooltip-autocomplete {
+  // background-color: #6ce778!important;
+  min-width: 200px;
+  min-height: 60px;
+  overflow: hidden;
 }
 
 .ͼ1l {
   background-color: #010409;
   color: #c9d1d9;
 }
-
 .ͼ1.cm-focused {
   outline: none;
 }
@@ -107,7 +139,7 @@ code {
     min-width: 160px;
     height: 20px;
     background-color: #010409;
-    border: 1px solid #2D3139;
+    border: var(--github-border);
     padding: 4px 8px;
     color: #fff;
     &:hover, &:focus {
