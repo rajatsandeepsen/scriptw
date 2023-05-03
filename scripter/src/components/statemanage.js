@@ -38,7 +38,7 @@ export default function SharedDom({file, func}) {
     }, []);
 
   return (
-        <section className='d-flex flex-column position-relative w-100 gap-3'>
+        <section className='container d-flex flex-column position-relative w-100 gap-3'>
           <div className={styles.codespace} data-running={isAllRun ? '△' : '▲'}>
            <CodeMirror id='shared'
            readOnly= {reableOnly}

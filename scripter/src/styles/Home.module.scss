@@ -139,3 +139,78 @@
   }
 }
 
+.WebBuilder {
+  width: calc(9 / 10 * 100vw);
+  height: calc(9 / 10 * 100vh);
+  margin: 0 auto;
+  position: relative;
+  gap: 1rem;
+  overflow: hidden;
+  ul {
+    position: absolute;
+    bottom: calc(-40px + -1rem);
+    left: -1px;
+  }
+  iframe { 
+    width: 100%;
+    height: 100%;
+    border: var(--github-border);
+    background-color: var(--github-bg);
+  }
+
+  main { 
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    
+    display: flex;
+    gap:1rem;
+
+    li {
+      flex: 1;
+      list-style: none;
+      overflow-y: auto;
+      border: var(--github-border);
+      background-color: var(--github-bg);
+  }
+}
+}
+
+.DesktopView {
+  display: flex;
+  flex-direction: column;
+  main {
+    // resize: horizontal;
+    max-height: 300px;
+    overflow-y: scroll;
+    flex-direction: row;
+  }
+
+  iframe {
+    resize:vertical;
+    min-height: 500px;
+  }
+}
+
+.MobileView {
+  display: flex;
+  flex-direction: row;
+  main {
+    // resize: horizontal;
+    flex-direction: column;
+  }
+
+  iframe {
+    resize:horizontal;
+  }
+}
+
+@media (width < 768px) {
+ .WebBuilder {
+  main {
+    display: none;
+  }
+ }
+  
+}

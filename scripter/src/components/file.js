@@ -23,7 +23,7 @@ export default function ScripterFile() {
 
     return ( 
         <>
-        <header className='d-flex flex-column align-items-start w-100'>
+        <header className='container d-flex flex-column align-items-start w-100'>
           <img src="/scripter.svg" width={60} height={60} alt="scripter logo" />
           <h1>{file.fileTitle}</h1>
           <div className='text-white-50' dangerouslySetInnerHTML={{__html:file.fileDescription}}></div>
