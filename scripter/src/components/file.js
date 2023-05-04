@@ -2,6 +2,7 @@ import SharedDom from '@/components/statemanage'
 import CodeSpaceContainer from './codespace'
 import useSwr from 'swr'
 import { useRef } from 'react'
+import { AskGPT } from './assistance'
 
 const fetcher = (url) => fetch(url).then((res) => res.json())
 
@@ -29,6 +30,7 @@ export default function ScripterFile() {
           <div className='text-white-50' dangerouslySetInnerHTML={{__html:file.fileDescription}}></div>
         </header>
         <SharedDom key={file.fileName} file={file} func={deleteAllCell} />
+        <AskGPT />
         <CodeSpaceContainer ref={codeSpaceCell} fileName={file.fileName} />
         </>
     )

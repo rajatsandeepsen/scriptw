@@ -5,8 +5,7 @@ import { useState } from 'react'
 import { markdown } from '@codemirror/lang-markdown'
 import { githubDark } from '@uiw/codemirror-theme-github'
 import CodeMirror from '@uiw/react-codemirror'
-// import '../node_modules/github-markdown-css/github-markdown.css'
-import 'github-markdown-css/github-markdown.css'
+import 'github-markdown-css/github-markdown-dark.css'
 
 function Markdown({index,data}){
     const {init, cellID} = data
