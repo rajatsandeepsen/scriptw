@@ -177,3 +177,10 @@ footer {
     }
   }
 }
+
+.markdown-body {
+  background-color: var(--github-bg);
+  border: var(--github-border)!important;
+  min-height: 250px;
+  color: #fff;
+}

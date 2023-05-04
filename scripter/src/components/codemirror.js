@@ -45,7 +45,7 @@ export default function Codespace({index, data, func}) {
 
 
   return (
-        <section className='container d-flex flex-column align-items-center w-100 gap-3'>
+        <section className='container d-flex flex-column align-items-center gap-3'>
           <div id={id} onKeyDown={callRefCompute} 
                className={styles.codespace} 
                data-running={isRunning ? '✱' : noOfTimes.current} 

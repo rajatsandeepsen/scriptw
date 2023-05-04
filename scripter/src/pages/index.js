@@ -1,7 +1,5 @@
 import Head from 'next/head'
 import ScripterFile from '@/components/file'
-import Image from 'next/image'
-import styles from '@/styles/Home.module.scss'
 
 export default function Home() {  
 

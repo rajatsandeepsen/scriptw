@@ -3,6 +3,7 @@ import { useEffect, useImperativeHandle,forwardRef, useState } from 'react'
 import useSwr from 'swr'
 import styles from '@/styles/Home.module.scss'
 import WebBuilder from '@/components/WebBuilder'
+import Markdown from '@/components/markdown'
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -27,18 +28,25 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
 
 
     function newCell(type){
-      let x = { init: '// let start coding', output: '', cellID: uuidv4()}
+      let x = { output: '', cellID: uuidv4()}
     
-      if (type === 'cell')  x.type = 'cell'
+      if (type === 'cell'){
+        x.type = 'cell'
+        x.init = '// Let start coding\n// (Shift + Enter) to Execute\n'
+      } 
+      else if (type === 'markdown') {
+        x.type = 'markdown'
+        x.init = '### Double click to Edit/Save\n'
+      } 
       else if (type === 'web'){
         x.type = 'web'
-        x.HTML = `<!-- let start building websites -->`
-        x.CSS = `/* don't forget to change color */`
+        x.init = '// Auto Run Enabled\n'
+        x.HTML = `<!-- let start building websites -->\n`
+        x.CSS = `/* don't forget to change color */\n`
       } 
       
       setCells((cells) => [...cells, x])
     }
-
 
     const deleteCell = (index) => setCells(cells.filter((value, arrIndex) => index !== arrIndex))
     const  clearCell = (index) => setCells((cells) => cells.map((cell, arrIndex) => index === arrIndex ? {output:' ', init: ' '} : cell ))
@@ -53,7 +61,7 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
           <button onClick={()=> newCell('web')}  className={styles.Button}>
             Web Builder <i className="bi bi-filetype-html"></i>
           </button>
-          <button  disabled className={styles.Button}>
+          <button onClick={()=> newCell('markdown')} className={styles.Button}>
             Markdown <i className="bi bi-hash"></i>
           </button>
         </ul>
@@ -76,8 +84,9 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
         switch (eachCell.type) {
           case 'web': return <WebBuilder key={i} index={i} data={eachCell} /> 
           case 'cell': return <Codespace key={i} index={i} data={eachCell} func={{deleteFunc:deleteCell, clearFunc: clearCell}} />
+          case 'markdown': return <Markdown key={i} index={i} data={eachCell} />
 
-          default: return <p>Wrong Cell Type</p>
+          default: return <p className='text-white-50'>~ Wrong Cell Type Detected ~</p>
         }
       })
     }
