@@ -4,6 +4,7 @@ const array = [
     {init: `// same console.log
 let x = 10 + 20
     console.log(x)`, output: '', type:'cell', cellID: uuidv4()},
+    {init:"### Javascript Language Emmit (Auto-Completion)\n> Bracket pairing\n\n>State & Methods\n\neg\n:  \n type \`for\` and \`Enter ↩\`\n", output: '', type:'markdown', cellID: uuidv4()},
 
 
 
@@ -28,17 +29,17 @@ finally { console.log("try again?") }
 // another console methods`, output: '', type:'cell', cellID: uuidv4()},
 {init: "let {url} = get() // reading from JSON\n\nlet HTML = `<img src=${url} alt='img loading?' width='100%'>`\n\nconsole.add(HTML)\n// DOM editor", output: '', type:'cell', cellID: uuidv4()},
 {init: "// let bring up a whole website\nlet {sus} = get()\n\nlet HTML = `<iframe src=${sus} height='300px'></iframe>`\n\nconsole.add(HTML)", output: '', type:'cell', cellID: uuidv4()},
-{init: `// keyboard shortcuts (awai)
+{init: `### Available all VScode shortcuts 
 
-// Execute the current cell (Shift + Enter)
-// Execute all the cells (Ctrl + Enter)
-// Append new cell (Ctrl + N)
+eg
+:
 
-// available all VScode shortcuts
+> Execute the current cell \`Shift + Enter\`
 
-// auto completion 
-// eg: type \`for\` and Enter ↩ 
-`, output: '', type:'cell', cellID: uuidv4()},
+> Execute all the cells \`Ctrl + Enter\`
+
+> Append new cell \`Ctrl + N\``
+, output: '', type:'markdown', cellID: uuidv4()},
 
 {init: `let {x, y, z} = get()
 
@@ -273,6 +274,68 @@ body {
 		--fg2: hsl(var(--hue),10%,80%);
 	}
 }`},
+
+{ cellID: uuidv4() , type: 'markdown', output:'', init:`# H1
+## H2
+### H3
+### My Great Heading {#custom-id}
+
+**bold text**
+*italicized text*
+> blockquote
+
+1. First item
+2. Second item
+3. Third item
+4. Third item
+5. Third item
+6. Third item
+7. Third item
+
+- First item
+- Second item
+- Third item
+
+\`code\`
+---
+[title](https://www.example.com)
+
+![alt text](scripter.svg)
+
+| Syntax | Description |
+| ----------- | ----------- |
+| Header | Title |
+| Paragraph | Text |
+
+\`\`\`
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "age": 25
+}
+\`\`\`
+
+Here's a sentence with a footnote. [^1]
+
+[^1]: This is the footnote.
+
+term
+: definition
+
+~~The world is flat.~~
+
+- [x] Write the press release
+- [ ] Update the website
+- [ ] Contact the media
+
+That is so funny! :joy:
+
+I need to highlight these ==very important words==
+
+H~2~O
+
+X^2^
+`},
 
   ]
 
