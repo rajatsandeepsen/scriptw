@@ -6,6 +6,8 @@ const files = [
         z: 30,
         url: "https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&w=1600",
         sus: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1",
+        braindotjs : 'https://unpkg.com/brain.js@2.0.0-beta.23/dist/browser.js',
+        chartjs: 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js'
       },
 
       fileName: 'file1',

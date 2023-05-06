@@ -3,7 +3,7 @@ import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { githubDark } from '@uiw/codemirror-theme-github';
 import { useState, useRef } from 'react'
-import { consoleTemplate, inputTemplate, sharedJsonDom } from '@/functions/input';
+import { consoleTemplate, inputTemplate, sharedJsonDom, loadAndRun } from '@/functions/input';
 
 export default function Codespace({index, data, func}) {
     const {init, output, cellID} = data
@@ -22,7 +22,7 @@ export default function Codespace({index, data, func}) {
     compute.current = () => {    
       setRunning(true)
       noOfTimes.current += 1
-      let runable = consoleTemplate(id) + inputTemplate() + sharedJsonDom() + codes
+      let runable = consoleTemplate(id) + inputTemplate() + sharedJsonDom() + loadAndRun() + codes
       console.log(runable)
       document.getElementById(id + 'result').innerHTML = ''
       try { new Function(runable)() }
