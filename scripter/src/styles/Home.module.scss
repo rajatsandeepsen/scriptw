@@ -194,3 +194,22 @@
     display: none!important;
   }
 }
+
+.GPTform {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  
+  
+  border: var(--github-border);
+  background-color: var(--github-bg);
+  input {
+    all: unset;
+    flex-grow: 1;
+    color: #c9d1d9;
+  }
+  i {
+    color: var(--github-green);
+    font-size: 20px;
+  }
+}

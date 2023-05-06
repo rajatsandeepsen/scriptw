@@ -16,9 +16,9 @@ function Markdown({index,data}){
         <div id={cellID} onDoubleClick={() => setIsEditing(!isEditing)} className={`${styles.Markdown} container`}>
         
             {
-                isEditing ? <CodeMirror value={input} min-height='200px' theme={githubDark} 
+                isEditing ? <CodeMirror value={input} theme={githubDark} 
                                      extensions={[markdown()]} onChange={(value) => setInput(value)}/>
-                          : <ReactMarkdown className={`markdown-body p-5 bg-black`} remarkPlugins={[remarkGfm]}>{input}</ReactMarkdown>    
+                          : <ReactMarkdown className={`markdown-body p-3 p-md-5 bg-black`} remarkPlugins={[remarkGfm]}>{input}</ReactMarkdown>    
             }
         </div>
     )

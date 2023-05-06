@@ -180,7 +180,11 @@ footer {
 
 .markdown-body {
   background-color: var(--github-bg);
-  border: var(--github-border)!important;
-  min-height: 250px;
+  // border: var(--github-border)!important;
+  min-height: 100px;
   color: #fff;
+}
+
+.cm-content {
+  min-height: 100px;
 }
