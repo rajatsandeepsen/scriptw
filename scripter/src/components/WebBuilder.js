@@ -9,6 +9,7 @@ import { consoleTemplate, sharedJsonDom } from '@/functions/input';
 import {isMobile} from 'react-device-detect';
 
 const WebBuilder = ({index, data, func}) => {
+    const {deleteFunc, clearFunc, onChageEachCell} = func
     const {init, output, HTML, CSS, cellID} = data
     
     const [mobileView, viewSet ] = useState(true)
@@ -64,7 +65,7 @@ const WebBuilder = ({index, data, func}) => {
                     
                 </main>
             </div>
-            <ul className='container ms-md-0 px-md-0 d-flex gap-3 flex-wrap w-100 align-items-start'>
+            <ul className='ms-md-0 px-md-0 d-flex gap-3 flex-wrap w-100 align-items-start'>
                     <button onClick={() => viewSet((mobileView)=> !mobileView)} className={styles.Button}>
                         View <i className="bi bi-grid-1x2-fill"/>
                     </button>
@@ -73,6 +74,15 @@ const WebBuilder = ({index, data, func}) => {
                     </button>
                     <button onClick={()=>runCode()} className={styles.Button}>
                         Run <i className="bi bi-bootstrap-reboot"/>
+                    </button>
+                    <button title='del' onClick={()=> deleteFunc(index)} className={styles.Button}>
+                        Cell <i className="bi bi-trash-fill"/>
+                    </button>
+                    <button title='ctrl + backspace' onClick={()=> clearFunc(index)} className={styles.Button}>
+                        Clear <i className="bi bi-eraser-fill"/>
+                    </button>
+                    <button title='ctrl + S' onClick={()=> onChageEachCell(id, {HTML:htmlCode, CSS:cssCode, init:jsCode, output:finalCode} )} className={styles.Button}>
+                        Save <i className="bi bi-save2"/>
                     </button>
                     <div className={`${styles.Button} d-flex gap-2 align-items-start flex-grow-1`}>
                         <i className="bi bi-terminal d-flex fs-4 ms-0" />

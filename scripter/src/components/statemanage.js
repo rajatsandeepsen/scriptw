@@ -61,7 +61,7 @@ export default function SharedDom({file, func}) {
               JSON { !reableOnly ? <i className="bi bi-unlock-fill "/> : <i className="bi bi-lock-fill"/> }
               </button>
 
-              <button disabled={true} title='Ctrl + S' className={styles.Button}>Save <i className="bi bi-cloud-fill"/></button>
+              <button disabled={false} title='Ctrl + S' className={styles.Button}>Save <i className="bi bi-cloud-fill"/></button>
               <button disabled={true} title='Ctrl + F' className={styles.Button}>Fork <i className="bi bi-option"/></button>
               <button onClick={func} title='' className={styles.Button}>Delete All Cells <i className="bi bi-trash-fill"/></button>
               <button onClick={clearJSON} title='' className={styles.Button}>Clear JSON <i className="bi bi-eraser-fill"/></button>

@@ -7,7 +7,7 @@ import { consoleTemplate, inputTemplate, sharedJsonDom, loadAndRun } from '@/fun
 
 export default function Codespace({index, data, func}) {
     const {init, output, cellID} = data
-    const {deleteFunc, clearFunc} = func
+    const {deleteFunc, clearFunc, onChageEachCell } = func
 
 
     const [codes, setCodes] = useState(init)
@@ -59,12 +59,17 @@ export default function Codespace({index, data, func}) {
             onChange={(value) => setCodes(value)}/>
 
             <ul>
-                {/*<button title='del' onClick={()=> deleteFunc(index)} className={styles.Button}>
+                
+                <button title='del' onClick={()=> deleteFunc(index)} className={styles.Button}>
                   Cell <i className="bi bi-trash-fill"/>
                 </button>
                 <button title='ctrl + backspace' onClick={()=> clearFunc(index)} className={styles.Button}>
                   Clear <i className="bi bi-eraser-fill"/>
-                </button>*/}
+                </button>
+                <button title='ctrl + S' onClick={()=> onChageEachCell(id, {init: codes, output:result})} className={styles.Button}>
+                  Save <i className="bi bi-save2"/>
+                </button>
+                
                 <button disabled={isRunning} title='Shift + Enter' onClick={compute.current} className={`${styles.Button} ${"runButton"}`}>
                   { isRunning ? 
                                 <span className='d-flex gap-1 align-items-center'>Executing <i className='spinner-border spinner-border-sm'></i></span> 
