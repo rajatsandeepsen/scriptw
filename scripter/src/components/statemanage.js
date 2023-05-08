@@ -25,7 +25,7 @@ export default function SharedDom({file, func}) {
   }
 
     useEffect(() => {
-      let value = JSON.stringify(file.init, undefined, 4)
+      let value = JSON.stringify(file, undefined, 4)
       setCodes(value)
 
       document.addEventListener('keydown', (e) => {

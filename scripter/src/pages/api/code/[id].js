@@ -59,6 +59,7 @@ set('data', data)
 
 {init: `let {data} = get() // now access here
 
+console.assert(data, "data is undefined")
 console.log(JSON.stringify(data))`, output: '', type:'cell', cellID: uuidv4()},
 
 {init: `// store functions & use it on next cell

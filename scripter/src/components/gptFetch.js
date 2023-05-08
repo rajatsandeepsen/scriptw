@@ -1,45 +1,39 @@
-import useSwr from 'swr'
-import { v4 as uuidv4 } from 'uuid';
-import Markdown from '@/components/markdown'
+import useSwr from "swr";
+import { v4 as uuidv4 } from "uuid";
+import Markdown from "@/components/markdown";
+import { fetchCatchError, swrOptions } from "@/functions/fetcher";
 
-const fetcher =     async (url) => {
-    const res = await fetch(url)
+const id = uuidv4();
+let responce = (
+  <div className="spinner-border" role="status">
+    <span className="sr-only"></span>
+  </div>
+);
 
-    if (!res.ok) {
-        const error = new Error('An error occurred while fetching the data.')
-        error.info = await res.json()
-        error.status = res.status
-        throw error
-    }        
+const GPTFetched = ({ input }) => {
+  const { data, error, isLoading } = useSwr(
+    `api/askGPT?question=${input}`,
+    fetchCatchError,
+    swrOptions
+  );
 
-    return res.json()
-}
-const id = uuidv4()
-let responce = <div className="spinner-border" role="status"><span className="sr-only"></span></div>
+  console.log(data, error, isLoading);
+  if (isLoading)
+    return (
+      <div className="bg-black d-flex p-5 w-100 justify-content-center">
+        {responce}
+      </div>
+    );
 
-const GPTFetched = ({input}) => {
-    const {data, error, isLoading} = useSwr(`api/askGPT?question=${input}`, fetcher,{
-        // revalidateOnFocus: false,
-        // revalidateOnMount:false,
-        // revalidateOnReconnect: false,
-        // refreshWhenOffline: false,
-        // refreshWhenHidden: false,
-        refreshInterval: 0
-      })
+  if (error || !data) {
+    let message = error?.info?.message || "Data not found";
+    let code = error?.status || "200";
 
-    console.log(data, error, isLoading)
-    if (isLoading) 
-        return <div className='bg-black d-flex p-5 w-100 justify-content-center'>{responce}</div>
+    let errorData = `> ${message}\n\n> HTTP response status code: \`${code}\``;
+    return <Markdown data={{ init: errorData, cellID: id }} />;
+  }
 
-    if (error || !data) {
-        let message = error?.info?.message || "Data not found" 
-        let code = error?.status || "200" 
+  return <Markdown data={{ init: data.content, cellID: id }} />;
+};
 
-        let errorData = `> ${message}\n\n> HTTP response status code: \`${code}\``
-        return <Markdown data={{init:errorData, cellID: id }} />
-    }
-    
-    return ( <Markdown data={{init:data.content, cellID: id }} /> );
-}
- 
 export default GPTFetched;

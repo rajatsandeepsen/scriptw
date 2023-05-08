@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import ScripterFile from '@/components/file'
+import ScripterFile from '@/main/file'
 
 export default function Home() {  
 

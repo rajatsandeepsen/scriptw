@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate": "npx prisma generate",
+    "push" : "npx prisma db push"
+    
   },
   "dependencies": {
     "@codemirror/lang-css": "^6.2.0",
@@ -15,6 +18,7 @@
     "@codemirror/lang-json": "^6.0.1",
     "@codemirror/lang-markdown": "^6.1.1",
     "@codemirror/state": "^6.2.0",
+    "@prisma/client": "^4.13.0",
     "@uiw/codemirror-theme-github": "^4.19.9",
     "@uiw/react-codemirror": "^4.19.9",
     "bootstrap": "^5.2.3",
@@ -34,5 +38,11 @@
     "sass": "^1.59.3",
     "swr": "^2.1.5",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "prisma": "^4.13.0"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
   }
 }

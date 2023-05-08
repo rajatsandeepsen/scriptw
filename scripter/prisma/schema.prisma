@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String       @id @default(uuid())
+  email     String       @unique
+  password  String
+  name      String?
+  createdAt DateTime?
+  files     FileHeader[]
+}
+
+model FileHeader {
+  auther      User      @relation(fields: [autherId], references: [id])
+  autherId    String
+  id          String    @id @default(uuid())
+  name        String?
+  title       String?
+  description String?
+  json        Json?
+  visiiblity  Boolean  @default(false)
+  createdAt   DateTime?
+  updatedAt   DateTime?
+  cells       Cell[]
+  webcells    WebCell[]
+}
+
+model Cell {
+  id     String     @id @default(uuid())
+  fileId String
+  file   FileHeader @relation(fields: [fileId], references: [id])
+  type   typeEnum
+  init   String?
+  output String?
+}
+
+model WebCell {
+  id     String     @id @default(uuid())
+  fileId String
+  file   FileHeader @relation(fields: [fileId], references: [id])
+  type   typeEnum
+  html   String?
+  css    String?
+  js     String?
+  output String?
+}
+
+// type Code = WebBuilder | Markdown | Javascript
+
+enum typeEnum {
+  cell
+  markdown
+}

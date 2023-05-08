@@ -11,7 +11,7 @@ function Markdown({index,data, func}){
     const {init, cellID} = data
     const {deleteFunc, clearFunc, onChageEachCell} = func
     
-    const [input, setInput] = useState(init)
+    const [input, setInput] = useState(init ?? 'markdown empty')
     const [isEditing, setIsEditing] = useState(false)
     return (
         <div id={cellID} onDoubleClick={() => setIsEditing(!isEditing)} className={`${styles.Markdown} container d-flex flex-column gap-3`}>

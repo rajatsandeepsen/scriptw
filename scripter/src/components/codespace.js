@@ -5,13 +5,12 @@ import styles from '@/styles/Home.module.scss'
 import WebBuilder from '@/components/WebBuilder'
 import Markdown from '@/components/markdown'
 import { v4 as uuidv4 } from 'uuid';
-import { esLint } from '@codemirror/lang-javascript'
+import { fetcher, swrOptions } from '@/functions/fetcher'
 
 
-const fetcher = (url) => fetch(url).then((res) => res.json())
 const CodeSpaceContainer = forwardRef((props, ref) => {
     const fileName = props.fileName
-    const {data: code, error: codeError, isLoading: codeLoading} = useSwr(`api/code/${fileName}`, fetcher)
+    const {data: code, error: codeError, isLoading: codeLoading} = useSwr(`../api/code/${fileName}`, fetcher, swrOptions)
     const [cells, setCells] = useState([])
 
     
@@ -50,8 +49,10 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
         x.HTML = `<!-- let start building websites -->\n`
         x.CSS = `/* don't forget to change color */\n`
       } 
-      
-      setCells((cells) => [...cells, x])
+      if (cells.length === 0  || !Array.isArray(cells)) 
+          setCells([x])
+      else 
+          setCells((cells) => [...cells, x])
     }
 
     const deleteCell = (index) => setCells(cells.filter((value, arrIndex) => index !== arrIndex))
@@ -83,27 +84,31 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
       )
     }
     
-      if (cells.length === 0){
-      return (
-          <>
-            <span className='d-flex flex-column align-items-center'>
-                <p className='text-white-50'>Create new cell to start coding</p>
-                <i className="bi bi-arrow-down text-white-50"/>
-            </span>
-            <PageButtons />
-          </>
-      )}
+    
 
     function AllCodeSpace(){
+
+
+      if (!Array.isArray(cells) || !cells.length){
+        return (
+              <span className='d-flex flex-column align-items-center'>
+                  <p className='text-white-50'>Create new cell to start coding</p>
+                  <i className="bi bi-arrow-down text-white-50"/>
+              </span>
+        )
+      }
+      
       return cells.map((eachCell, i)=> {
         switch (eachCell.type) {
-          case 'web': return <WebBuilder key={eachCell.cellID} index={i} data={eachCell} func={{deleteFunc:deleteCell, clearFunc: clearCell, onChageEachCell: handleChildStateChange}} /> 
+          // case 'web': return <WebBuilder key={eachCell.cellID} index={i} data={eachCell} func={{deleteFunc:deleteCell, clearFunc: clearCell, onChageEachCell: handleChildStateChange}} /> 
           case 'cell': return <Codespace key={eachCell.cellID} index={i} data={eachCell} func={{deleteFunc:deleteCell, clearFunc: clearCell, onChageEachCell: handleChildStateChange}} />
           case 'markdown': return <Markdown key={eachCell.cellID} index={i} data={eachCell} func={{deleteFunc:deleteCell, clearFunc: clearCell, onChageEachCell: handleChildStateChange}} />
 
-          default: return <p className='text-white-50'>~ Wrong Cell Type Detected ~</p>
+          default: return <p className='text-white-50'>~ [Error] Wrong cell type detected ~</p>
         }
       })
+
+
     }
 
     return (

@@ -16,10 +16,10 @@ const WebBuilder = ({index, data, func}) => {
     const [codeView, codeViewSet ] = useState(!isMobile)
 
 
-    const [htmlCode, setHtmlCode] = useState(HTML)
-    const [cssCode, setCssCode] = useState(CSS)
-    const [jsCode, setJsCode] = useState(init)
-    const [finalCode, setFinalCode] = useState(output)
+    const [htmlCode, setHtmlCode] = useState(HTML ?? 'html empty')
+    const [cssCode, setCssCode] = useState(CSS ?? 'css empty')
+    const [jsCode, setJsCode] = useState(init ?? 'js empty')
+    const [finalCode, setFinalCode] = useState(output ?? '')
 
     const id = cellID
     
