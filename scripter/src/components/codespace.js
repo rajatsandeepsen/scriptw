@@ -9,8 +9,8 @@ import { fetcher, swrOptions } from '@/functions/fetcher'
 
 
 const CodeSpaceContainer = forwardRef((props, ref) => {
-    const fileName = props.fileName
-    const {data: code, error: codeError, isLoading: codeLoading} = useSwr(`../api/code/${fileName}`, fetcher, swrOptions)
+    const id = props.fileId
+    const {data: code, error: codeError, isLoading: codeLoading} = useSwr(`../api/code/${id}`, fetcher, swrOptions)
     const [cells, setCells] = useState([])
 
     
@@ -25,15 +25,15 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
     if (codeError) return <p>Failed to Load</p>
     if (codeLoading) return <div className="spinner-border text-white m-auto" role="status"><span className="sr-only"></span></div>
     
-    const handleChildStateChange = (cellID, newState) => {
-      const index = cells.findIndex(obj => obj.cellID === cellID);
+    const handleChildStateChange = (id, newState) => {
+      const index = cells.findIndex(obj => obj.id === id);
       const newArray = [...cells];
-      newArray[index] = { ...newArray[index], ...newState, cellID: cellID };
+      newArray[index] = { ...newArray[index], ...newState, id: id };
       setCells(newArray);
     };
 
     function newCell(type){
-      let x = { output: '', cellID: uuidv4()}
+      let x = { output: '', id: uuidv4()}
     
       if (type === 'cell'){
         x.type = 'cell'
@@ -60,7 +60,7 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
           if (index === arrIndex) {
             let fresh = {}
             for (const [key, value] of Object.entries(cell)) { fresh[key] = '' }
-            fresh.cellID = cell.cellID
+            fresh.id = cell.id
             fresh.type = cell.type
             return fresh
           }
@@ -100,9 +100,9 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
       
       return cells.map((eachCell, i)=> {
         switch (eachCell.type) {
-          // case 'web': return <WebBuilder key={eachCell.cellID} index={i} data={eachCell} func={{deleteFunc:deleteCell, clearFunc: clearCell, onChageEachCell: handleChildStateChange}} /> 
-          case 'cell': return <Codespace key={eachCell.cellID} index={i} data={eachCell} func={{deleteFunc:deleteCell, clearFunc: clearCell, onChageEachCell: handleChildStateChange}} />
-          case 'markdown': return <Markdown key={eachCell.cellID} index={i} data={eachCell} func={{deleteFunc:deleteCell, clearFunc: clearCell, onChageEachCell: handleChildStateChange}} />
+          // case 'web': return <WebBuilder key={eachCell.id} index={i} data={eachCell} func={{deleteFunc:deleteCell, clearFunc: clearCell, onChageEachCell: handleChildStateChange}} /> 
+          case 'cell': return <Codespace key={eachCell.id} index={i} data={eachCell} func={{deleteFunc:deleteCell, clearFunc: clearCell, onChageEachCell: handleChildStateChange}} />
+          case 'markdown': return <Markdown key={eachCell.id} index={i} data={eachCell} func={{deleteFunc:deleteCell, clearFunc: clearCell, onChageEachCell: handleChildStateChange}} />
 
           default: return <p className='text-white-50'>~ [Error] Wrong cell type detected ~</p>
         }

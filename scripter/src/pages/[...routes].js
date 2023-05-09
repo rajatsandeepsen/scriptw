@@ -7,11 +7,11 @@ import { fetcher, swrOptions } from '@/functions/fetcher'
 import Custom404 from './404';
 
 export default function Home() { 
+  const router = useRouter()
+  const path = router.query.routes || []
+  // console.log(path)
   
   function GetRouteResult(){
-    const router = useRouter()
-    const path = router.query.routes || []
-    // console.log(path)
     switch (path?.length) {
       case 1: return <Profile user={ path[0] }/>
       case 2: return <ScripterFile routes={ path.join('/') } />
@@ -22,7 +22,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Hi</title>
+        <link rel="icon" href="/scripter.svg" />
+        <title>{path.join('/')}</title>
       </Head>
       <main className='text-white'>
         <GetRouteResult />

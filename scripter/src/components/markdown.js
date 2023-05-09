@@ -8,13 +8,13 @@ import CodeMirror from '@uiw/react-codemirror'
 import 'github-markdown-css/github-markdown-dark.css'
 
 function Markdown({index,data, func}){
-    const {init, cellID} = data
+    const {init, id} = data
     const {deleteFunc, clearFunc, onChageEachCell} = func
     
     const [input, setInput] = useState(init ?? 'markdown empty')
     const [isEditing, setIsEditing] = useState(false)
     return (
-        <div id={cellID} onDoubleClick={() => setIsEditing(!isEditing)} className={`${styles.Markdown} container d-flex flex-column gap-3`}>
+        <div id={id} onDoubleClick={() => setIsEditing(!isEditing)} className={`${styles.Markdown} container d-flex flex-column gap-3`}>
         
             {
                 isEditing ? <CodeMirror value={input} theme={githubDark} 

@@ -11,16 +11,16 @@ import {
 } from "@/functions/input";
 
 export default function Codespace({ index, data, func }) {
-  const { init, output, cellID } = data;
+  const { init, output, id } = data;
   const { deleteFunc, clearFunc, onChageEachCell } = func;
 
-  const [codes, setCodes] = useState(init ?? "js empty");
+  const [codes, setCodes] = useState(init.replace('/t', '') ?? "js empty");
   const [result, setResult] = useState(output ?? "");
   const [isRunning, setRunning] = useState(false);
 
   const compute = useRef();
   const noOfTimes = useRef(0);
-  const id = cellID;
+
 
   compute.current = () => {
     setRunning(true);

@@ -44,7 +44,7 @@ export default function ScripterFile({routes}) {
         </header>
         <SharedDom key={file.id} file={file.json} func={deleteAllCell} />
         {/*<AskGPT />*/}
-        <CodeSpaceContainer ref={codeSpaceCell} fileName={file.name} />
+        <CodeSpaceContainer ref={codeSpaceCell} fileId={file.id} />
       </section>
     )
 }

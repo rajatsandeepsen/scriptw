@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     incoming.map((item, index) => {
         incoming[index] = item.trim()
     })
-    console.log(incoming)
+    // console.log(incoming)
     if (incoming.length === 1){
         const user = await prisma.user.findFirst({
             where: {

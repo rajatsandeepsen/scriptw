@@ -2,13 +2,15 @@
   "name": "scripter",
   "version": "0.1.0",
   "private": true,
+  
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "generate": "npx prisma generate",
-    "push" : "npx prisma db push"
+    "push" : "npx prisma db push ",
+    "seed" : "npx prisma db seed"
     
   },
   "dependencies": {
@@ -43,6 +45,6 @@
     "prisma": "^4.13.0"
   },
   "prisma": {
-    "seed": "node prisma/seed.js"
+    "seed": "node prisma/seed.mjs"
   }
 }
