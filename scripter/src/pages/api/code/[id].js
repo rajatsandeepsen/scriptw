@@ -1,10 +1,11 @@
 import { PrismaClient } from '@prisma/client'
+import { getToken } from "next-auth/jwt"
 const prisma = new PrismaClient()
 
 async function forEachCellUpdate(element) {
   const cell = await prisma.cell.update({ 
     where: { id: element.id },
-    data: { init: element.init, output: element.output },
+    data: { init: element.init, output: element.output, runs: element.runs || 0 },
   })
 
   // console.log(cell)
@@ -27,12 +28,16 @@ async function forEachCellCreate(element, id) {
 }
 
 export default async function handler(req, res) {
+    const session = await getToken({ req: req, secret: process.env.NEXTAUTH_SECRET });
+
     let { id } = req.query;
     if (req.method === 'GET'){
       throwCells(req, res, id)
     }
 
     if (req.method === 'POST'){
+      if (!session) return res.status(401).json({message: 'Unauthorized Access'})
+
       updateFile(req, res, id)
 
     }

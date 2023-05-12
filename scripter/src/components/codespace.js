@@ -9,17 +9,12 @@ import { v4 as uuidv4 } from "uuid";
 import { fetchCatchError, fetcher, swrOptions } from "@/functions/fetcher";
 import { deepCheck, sleep } from "@/functions/object";
 
-function saveAllCell() {
-  document.querySelectorAll(".saveCell").forEach((each) => {
-    setTimeout(() => {
-      each.click();
-    }, 10);
-  });
-}
 
 
 const CodeSpaceContainer = forwardRef((props, ref) => {
   const id = props.fileId;
+  const editable = props.editable
+
   const {
     data: code,
     error: codeError,
@@ -45,7 +40,6 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
 
     cells?.forEach((each, i) => {
       if (!deepCheck(each, code[i])) {
-        // console.log(each,code[i])
 
         if (code[i] === undefined) {
           if (each.init.trim() !== "") createArray.push(each);
@@ -54,7 +48,6 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
     });
 
     if (updateArray.length > 0 || createArray.length > 0) {
-      console.log(updateArray, createArray);
 
       fetch(`../api/code/${id}`, {
         method: "POST",
@@ -65,18 +58,20 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
       })
         .then((res) => res.json())
         .then((data) => console.log(data));
+
+      return true;
     }
+    return false;
   }
 
   useImperativeHandle(ref, () => ({
     deleteAllCell: () => setCells([]),
-    updateTheFile: () => updateTheFile(),
+    updateTheFile: updateTheFile,
   }));
 
   useEffect(() => {
     if (code){
       code.sort((a, b) => a.createdAt > b.createdAt)
-      console.log(code)
       setCells(() => code)
     }
   }, [code]);
@@ -89,8 +84,7 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
 
     const newArray = [...cells];
     newArray[index] = { ...newArray[index], ...newState, id: id };
-    // console.log(cells[index],newArray[index])
-    // console.log(deepCheck( cells[index],newArray[index]))
+    
     setCells(newArray);
   };
 
@@ -134,8 +128,10 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
 
   const PageButtons = () => {
     return (
-      <ul className="btn-group">
-        <button
+      <div className="container d-flex">
+      
+      <ul className="mx-auto btn-group cellButtons">
+        <button disabled={!editable}
           onClick={() => newCell("cell")}
           className={`${styles.Button} rounded-0 border-end-0 rounded-start`}
         >
@@ -148,13 +144,14 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
         >
           Web Builder <i className="bi bi-box-fill"></i>
         </button>
-        <button
+        <button disabled={!editable}
           onClick={() => newCell("markdown")}
           className={`${styles.Button} rounded-0 rounded-end`}
         >
           Markdown <i className="bi bi-markdown-fill"></i>
         </button>
       </ul>
+      </div>
     );
   };
 
@@ -176,6 +173,7 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
             <Codespace
               key={eachCell.id}
               index={i}
+              editable={editable}
               data={eachCell}
               func={{
                 deleteFunc: deleteCell,
@@ -190,6 +188,7 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
             <Markdown
               key={eachCell.id}
               index={i}
+              editable={editable}
               data={eachCell}
               func={{
                 deleteFunc: deleteCell,

@@ -10,8 +10,8 @@ import {
   loadAndRun,
 } from "@/functions/input";
 
-export default function Codespace({ index, data, func }) {
-  const { init, output, id } = data;
+export default function Codespace({ index, data, func, editable }) {
+  const { init, output, id, runs } = data;
   const { deleteFunc, clearFunc, onChageEachCell, pushToRef } = func;
   const saveThisCell = useRef();
 
@@ -21,7 +21,7 @@ export default function Codespace({ index, data, func }) {
   const [open, setOpen] = useState(false);
 
   const compute = useRef();
-  const noOfTimes = useRef(0);
+  const noOfTimes = useRef(runs);
 
   useEffect(() => {
     if (open) setTimeout(() => { setOpen(false) }, 4000);
@@ -30,7 +30,7 @@ export default function Codespace({ index, data, func }) {
   pushToRef(()=>saveThisCell.current());
 
   saveThisCell.current = () =>{
-    onChageEachCell(id, { init: codes, output: () => result })
+    onChageEachCell(id, { init: codes, output: result, runs: noOfTimes.current })
   }
 
   compute.current = () => {
@@ -52,7 +52,7 @@ export default function Codespace({ index, data, func }) {
       ).innerHTML += `<span class='err'>${e}</span>`;
     } finally {
       setResult(() => document.getElementById(id + "result").innerHTML);
-      setTimeout(() => {setRunning(false); saveThisCell.current()}, 2000);
+      setTimeout(() => {setRunning(false); saveThisCell.current()}, 1000);
     }
   };
 
@@ -84,26 +84,26 @@ export default function Codespace({ index, data, func }) {
       <div
         id={id}
         onKeyDown={callRefCompute}
-        className={styles.codespace}
+        className={`${styles.codespace} printCell`}
         data-running={isRunning ? "✱" : noOfTimes.current}
         tabIndex="0"
       >
         <CodeMirror value={codes || `// Let start coding\n// (Shift + Enter) to Execute\n`} min-height="200px" theme={githubDark} extensions={[javascript({ jsx: true })]} onChange={(value) => setCodes(value)} />
 
-        <ul>
-            <button title="del" onClick={() => deleteFunc(index)} className={`${styles.Button} ${open? "visible":"invisible"}`} >
+        <ul className="cellButtons">
+            <button disabled={!editable} title="del" onClick={() => deleteFunc(index)} className={`${styles.Button} ${open? "visible":"invisible"}`} >
               Cell <i className="bi bi-trash-fill" />
             </button>
 
-            <button title="ctrl + backspace" onClick={() => clearFunc(index)} className={`${styles.Button} ${open? "visible":"invisible"}`} >
+            <button disabled={!editable} title="ctrl + backspace" onClick={() => clearFunc(index)} className={`${styles.Button} ${open? "visible":"invisible"}`} >
               Clear <i className="bi bi-eraser-fill" />
             </button>
 
-            <button title="ctrl + S" onClick={saveThisCell.current} className={`${styles.Button} saveCell ${open? "visible":"invisible"}`} >
+            <button disabled={!editable} title="ctrl + S" onClick={saveThisCell.current} className={`${styles.Button} saveCell ${open? "visible":"invisible"}`} >
               Save <i className="bi bi-save2" />
             </button>
           
-            <button onClick={() => setOpen(!open)} className={styles.Button}>
+            <button disabled={!editable} onClick={() => setOpen(!open)} className={styles.Button}>
               Open <i className="bi bi-grid-fill" />
             </button>
 

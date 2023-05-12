@@ -6,30 +6,15 @@ import { useSession, signIn } from "next-auth/react"
 import Image from 'next/image'
 
 export default function Home() {
-  const { data: session } = useSession()
-  const authForm = 'authForm'
+  const { data: session , status} = useSession()
 
-  if (session) {
-    // Router.push(`/${session.user.name}`)
-    console.log(session)
+  
+  if (status === 'authenticated' && session) {
+    Router.push(`/${session.user.email.split('@')[0]}`)
   }
 
-  function handleSumbit(e){
-    e.preventDefault()
-    const name = e.target.name.value
-    const email = e.target.email.value
-    const password = e.target.password.value
 
-    const data = {
-      name,
-      email,
-      password
-    }
-
-    Router.push(`/${data.name}`)
-  }
-
-  return (
+  else return (
     <>
       <Head>
         <title>ScriptW</title>
@@ -72,7 +57,6 @@ export default function Home() {
           <h4>Create new Account / Login In</h4>
             <div className="d-flex gap-3">
               <button onClick={() => signIn('github')} className={styles.Button}>Sign up with <i className="bi bi-github" /></button>
-              <button disabled onClick={() => signIn('twitter')} className={styles.Button}>Sign up with <i className="bi bi-twitter" /></button>
             </div>
           </div>
         </section>

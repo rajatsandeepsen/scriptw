@@ -143,7 +143,23 @@ body {
 
   }
 }
-
+.printLayout{
+  width: 90vw;
+  max-width: 90vw;
+  .printCell{
+    outline: var(--github-border) !important;
+    &::before {
+    left: -20px;
+    font-size: 10px;
+    }
+  }
+  .cellButtons {
+    visibility: hidden;
+  }
+  .markdown-body {
+    outline: var(--github-border) !important;
+  }
+}
 code {
   color: #fff;
 }
@@ -201,4 +217,13 @@ h1 {
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+}
+
+.myBadge {
+  outline: var(--github-border);
+  color: #fff;
+  padding: 1px 8px;
+  font-size: small;
+  opacity: .6;
+  border-radius: 20px;
 }

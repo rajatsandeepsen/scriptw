@@ -35,7 +35,7 @@ function Markdown({index,data, func}){
                                      extensions={[markdown()]} onChange={(value) => setInput(value)}/>
                           : <ReactMarkdown className={`markdown-body p-3 p-md-5 bg-black`} remarkPlugins={[remarkGfm]}>{input}</ReactMarkdown>    
             }
-            <div className='btn-group'>
+            <div className='btn-group cellButtons'>
                 <button title='del' onClick={()=> deleteFunc(index)} className={`${styles.Button} rounded-0 rounded-start border-end-0`}>
                     Cell <i className="bi bi-trash-fill"/>
                 </button>

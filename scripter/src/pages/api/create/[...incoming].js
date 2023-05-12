@@ -1,27 +1,29 @@
 import { PrismaClient } from '@prisma/client'
+// import { getToken } from "next-auth/jwt"
+const prisma = new PrismaClient()
 
 
 export default async function handler(req, res) {
-    const prisma = new PrismaClient()
+    // const session = await getToken({ req: req, secret: process.env.NEXTAUTH_SECRET });
+    // const sessionUserName = session?.email.split('@')[0]
 
     const {incoming} = req.query
     console.log(incoming)
 
-    
-    if (req.method !== 'POST' || !incoming || incoming.length > 2) res.status(404).json({message: 'Wrong request method/parameters'})
+    console.log(req.method)
+    if ( req.method === 'PATCH' ) {
+        let data = req.body
+
+        const result = await prisma.fileHeader.update({
+            where: {id: incoming[0]},
+            data: {json: data}
+        })
+        console.log(data,result)
+        res.status(200).json({message: 'Created File'})
+    }
 
 
-    // if (incoming.length === 1) {
-    //     let data = req.body
-    //     const result = await prisma.user.create({
-    //         data: {...data,
-    //             }
-    //     })
-    //     console.log(result)
-    //     res.status(200).json({message: 'Created File'})
-    // }
-
-    if (incoming.length === 2) {
+    else if ( req.method === 'POST') {
 
         let data = req.body
         const result = await prisma.fileHeader.create({
@@ -34,5 +36,6 @@ export default async function handler(req, res) {
         console.log(result)
         res.status(200).json({message: 'Created File'})
     }
-    
+
+    else res.status(404).json({message: 'Wrong request method/parameters'})
 }

@@ -6,10 +6,12 @@ import { AskGPT } from '@/components/assistance'
 import Loading from '@/components/loading'
 import { fetchCatchError, swrOptions } from '@/functions/fetcher'
 import { signIn } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 
 
 export default function ScripterFile({routes}) {  
   const codeSpaceCell = useRef()
+  
   
   const {data: file, error: fileError, isLoading: fileLoading} = useSwr(`../api/data/${routes}`, fetchCatchError, swrOptions)
 
@@ -36,23 +38,22 @@ export default function ScripterFile({routes}) {
         </section>
         )
 
-
-
+        
         // <img src="/scripter.svg" width={60} height={60} alt="scripter logo" />
     return ( 
       <section className='d-flex my-5 flex-column gap-5 align-items-center'>
         <header className='container d-flex flex-column align-items-start w-100'>
           <div className='d-flex align-items-center gap-2'>
             <h1>{file.title}</h1>
-            <span className='badge badge-pill rounded-5 border-light border-opacity-25 border text-white-50'>{file.visibility ? "Public" : "Private"}</span>
+            <span className='myBadge'>{file.visibility ? "Public" : "Private"}</span>
           </div>
           <p className='text-white-50 lead'>
             {file.description}
           </p>
         </header>
-        <SharedDom key={file.id} file={file.json} func={{'deleteAllCell': deleteAllCell,'updateTheFile': ()=> codeSpaceCell.current.updateTheFile() }} />
+        <SharedDom key={file.id} file={file} func={{'deleteAllCell': deleteAllCell,'updateTheFile': codeSpaceCell.current.updateTheFile }} />
         {/*<AskGPT />*/}
-        <CodeSpaceContainer key={file.id + "codespace"} ref={codeSpaceCell} fileId={file.id} />
+        <CodeSpaceContainer key={file.id + "codespace"} ref={codeSpaceCell} editable={file.edit} fileId={file.id} />
       </section>
     )
 }
