@@ -6,8 +6,8 @@ import WebBuilder from "@/components/WebBuilder";
 import Loading from "@/components/loading";
 import Markdown from "@/components/markdown";
 import { v4 as uuidv4 } from "uuid";
-import { fetchCatchError, fetcher, swrOptions } from "@/functions/fetcher";
-import { deepCheck, sleep } from "@/functions/object";
+import { fetchCatchError, swrOptions } from "@/functions/fetcher";
+import { deepCheck } from "@/functions/object";
 
 
 
