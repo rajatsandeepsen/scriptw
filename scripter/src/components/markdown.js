@@ -10,13 +10,15 @@ import 'github-markdown-css/github-markdown-dark.css'
 function Markdown({index,data, func}){
     const computeSave = useRef()
     const {init, id} = data
-    const {deleteFunc, clearFunc, onChageEachCell} = func
+    const {deleteFunc, clearFunc, onChageEachCell, pushToRef} = func
 
     computeSave.current = () => {
         setIsEditing(!isEditing)
         onChageEachCell(id, {init:input})
     }
+    pushToRef(computeSave.current);
 
+    
     function handleKeys(e){
         if (e.keyCode == 13 && e.shiftKey) {
             e.preventDefault();

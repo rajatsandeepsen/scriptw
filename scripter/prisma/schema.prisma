@@ -9,9 +9,8 @@ datasource db {
 
 model User {
   id        String       @id @default(uuid())
-  email     String       @unique
   name      String       @unique
-  createdAt DateTime @default(now())
+  createdAt DateTime     @default(now())
   files     FileHeader[]
 }
 
@@ -23,20 +22,22 @@ model FileHeader {
   title       String?
   description String?
   json        Json?
-  visibility  Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  visibility  Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
   cells       Cell[]
   webcells    WebCell[]
 }
 
 model Cell {
-  id     String     @id @default(uuid())
-  fileId String
-  file   FileHeader @relation(fields: [fileId], references: [id])
-  type   typeEnum
-  init   String? @db.VarChar(400)
-  output String? @db.VarChar(300)
+  id        String     @id @default(uuid())
+  fileId    String
+  file      FileHeader @relation(fields: [fileId], references: [id])
+  type      typeEnum
+  runs      Int        @default(0)
+  init      String?    @db.VarChar(400)
+  output    String?    @db.VarChar(300)
+  createdAt DateTime   @default(now())
 }
 
 model WebCell {

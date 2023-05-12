@@ -12,7 +12,8 @@ import {
 
 export default function Codespace({ index, data, func }) {
   const { init, output, id } = data;
-  const { deleteFunc, clearFunc, onChageEachCell } = func;
+  const { deleteFunc, clearFunc, onChageEachCell, pushToRef } = func;
+  const saveThisCell = useRef();
 
   const [codes, setCodes] = useState(init);
   const [result, setResult] = useState(output ?? "");
@@ -24,8 +25,13 @@ export default function Codespace({ index, data, func }) {
 
   useEffect(() => {
     if (open) setTimeout(() => { setOpen(false) }, 4000);
-
   }, [open]);
+
+  pushToRef(()=>saveThisCell.current());
+
+  saveThisCell.current = () =>{
+    onChageEachCell(id, { init: codes, output: () => result })
+  }
 
   compute.current = () => {
     setRunning(true);
@@ -45,8 +51,8 @@ export default function Codespace({ index, data, func }) {
         id + "result"
       ).innerHTML += `<span class='err'>${e}</span>`;
     } finally {
-      setResult(document.getElementById(id + "result").innerHTML);
-      setTimeout(() => setRunning(false), 1000);
+      setResult(() => document.getElementById(id + "result").innerHTML);
+      setTimeout(() => {setRunning(false); saveThisCell.current()}, 2000);
     }
   };
 
@@ -93,7 +99,7 @@ export default function Codespace({ index, data, func }) {
               Clear <i className="bi bi-eraser-fill" />
             </button>
 
-            <button title="ctrl + S" onClick={() => onChageEachCell(id, { init: codes, output: result })} className={`${styles.Button} saveCell ${open? "visible":"invisible"}`} >
+            <button title="ctrl + S" onClick={saveThisCell.current} className={`${styles.Button} saveCell ${open? "visible":"invisible"}`} >
               Save <i className="bi bi-save2" />
             </button>
           

@@ -1,18 +1,29 @@
 import { PrismaClient } from "@prisma/client";
-
+let x = 0
+function createDate(){
+  let date;
+  date = new Date();
+  date = date.getUTCFullYear() + '-' +
+      ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' +
+      ('00' + date.getUTCDate()).slice(-2) + ' ' + 
+      ('00' + date.getUTCHours()).slice(-2) + ':' + 
+      ('00' + date.getUTCMinutes()).slice(-2) + ':' + 
+      ('00' + date.getUTCSeconds()).slice(-2) + '.' +
+      (date.getUTCMilliseconds() + ++x)
+      
+  return date
+}
 const prisma = new PrismaClient();
 
 async function main() {
   const user = await prisma.user.create({
     data: {
       name: "rajatsandeepsen",
-      email: "rajatsandeepsen@gmail.com",
-      password: "123456789",
       files: {
         create: [
           {
-            title: "New file Created",
-            name: "file11",
+            title: "Javascript Browser Runtime",
+            name: "javascript",
             description: "This is a new file created by default",
             json: {
               x: 10,
@@ -31,13 +42,13 @@ async function main() {
                         init: `// same console.log
 let x = 10 + 20
 console.log(x)`,
-                        output: "",
+                        output: "",createdAt: new Date(createDate()),
                         type: "cell",
                     
                       },
                       {
                         init: "### Javascript Language Emmit (Auto-Completion)\n> Bracket pairing\n\n>State & Methods\n\neg\n:  \n type `for` and `Enter ↩`\n",
-                        output: "",
+                        output: "",createdAt: new Date(createDate()),
                         type: "markdown",
                     
                       },
@@ -51,7 +62,7 @@ input("Enter Value")
   array.push(value)
   console.log(array)
 })`,
-                        output: "",
+                        output: "",createdAt: new Date(createDate()),
                         type: "cell",
                     
                       },
@@ -65,19 +76,19 @@ catch(e){ console.error(e) }
 finally { console.log("try again?") }
     
 // another console methods`,
-                        output: "",
+                        output: "",createdAt: new Date(createDate()),
                         type: "cell",
                     
                       },
                       {
                         init: "let {url} = get() // reading from JSON\n\nlet HTML = `<img src=${url} alt='img loading?' width='100%'>`\n\nconsole.add(HTML)\n// DOM editor",
-                        output: "",
+                        output: "",createdAt: new Date(createDate()),
                         type: "cell",
                     
                       },
                       {
                         init: "// let bring up a whole website\nlet {sus} = get()\n\nlet HTML = `<iframe src=${sus} height='300px'></iframe>`\n\nconsole.add(HTML)",
-                        output: "",
+                        output: "",createdAt: new Date(createDate()),
                         type: "cell",
                     
                       },
@@ -92,7 +103,7 @@ eg
 > Execute all the cells \`Ctrl + Enter\`
 
 > Append new cell \`Ctrl + N\``,
-                        output: "",
+                        output: "",createdAt: new Date(createDate()),
                         type: "markdown",
                     
                       },
@@ -103,7 +114,7 @@ eg
 console.log(x, y, z)
 
 console.assert(x > 100 , x + y + z)`,
-                        output: "",
+                        output: "",createdAt: new Date(createDate()),
                         type: "cell",
                     
                       },
@@ -117,7 +128,7 @@ console.assert(x > 100 , x + y + z)`,
                     
 set('data', data)
 // add data to JSON & access them in next block`,
-                        output: "",
+                        output: "",createdAt: new Date(createDate()),
                         type: "cell",
                     
                       },
@@ -127,7 +138,7 @@ set('data', data)
                     
                     console.assert(data, "data is undefined")
                     console.log(JSON.stringify(data))`,
-                        output: "",
+                        output: "",createdAt: new Date(createDate()),
                         type: "cell",
                     
                       },
@@ -140,7 +151,7 @@ const findSquare = (a,b) => a ** b
 
 setFunc("findSum", findSum)
 setFunc("findSquare", findSquare)`,
-                        output: "",
+                        output: "",createdAt: new Date(createDate()),
                         type: "cell",
                     
                       },
@@ -150,7 +161,7 @@ let findSum = getFunc("findSum")
                     
 let result = findSum(10, 13)
 console.log(result)`,
-                        output: "",
+                        output: "",createdAt: new Date(createDate()),
                         type: "cell",
                     
                       },
@@ -161,23 +172,14 @@ console.log(result)`,
 }
                     
 someFunc()`,
-                        output: "",
+                        output: "",createdAt: new Date(createDate()),
                         type: "cell",
                     
                       }
                 ]
             }
         },
-          {
-            title: "New file Created2",
-            name: "file2",
-            description: "This is a new file created by default2",
-            json: {
-              x: 20,
-              y: 20,
-              z: 20,
-            },
-          },
+          
         ],
       },
     },

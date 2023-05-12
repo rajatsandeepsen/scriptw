@@ -18,9 +18,7 @@ export default function ScripterFile({routes}) {
       if (confirm(text)) codeSpaceCell.current.deleteAllCell()
     }
 
-    function updateTheFile(){
-      codeSpaceCell.current.updateTheFile()
-    }
+    
 
     if (fileLoading) return <Loading error={null} />
     if (fileError) return <Loading error={fileError} login={{inside: <>Sign up with <i className="bi bi-github" /></>, func: () => signIn('github') }} />
@@ -52,9 +50,9 @@ export default function ScripterFile({routes}) {
             {file.description}
           </p>
         </header>
-        <SharedDom key={file.id} file={file.json} func={{'deleteAllCell': deleteAllCell,'updateTheFile': updateTheFile }} />
+        <SharedDom key={file.id} file={file.json} func={{'deleteAllCell': deleteAllCell,'updateTheFile': ()=> codeSpaceCell.current.updateTheFile() }} />
         {/*<AskGPT />*/}
-        <CodeSpaceContainer ref={codeSpaceCell} fileId={file.id} />
+        <CodeSpaceContainer key={file.id + "codespace"} ref={codeSpaceCell} fileId={file.id} />
       </section>
     )
 }

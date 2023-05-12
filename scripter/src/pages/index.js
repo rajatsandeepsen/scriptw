@@ -65,7 +65,7 @@ export default function Home() {
         <p className='lead'>In-Browser Jupyter Notebook Alternative for Javascript</p>
         
         <div className={styles.mockup}>
-          <Image src={'/mockup4.png'}  width={1200} height={600} loading='eager'alt='scriptw'/>
+          <Image src={'/mockup.png'}  width={1200} height={600} loading='eager'alt='scriptw'/>
         </div>
         
         <div className="d-flex flex-column gap-3 mt-5 align-items-center">

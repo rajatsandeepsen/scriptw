@@ -1,5 +1,5 @@
 import Codespace from "@/components/codemirror";
-import { useEffect, useImperativeHandle, forwardRef, useState } from "react";
+import { useEffect, useImperativeHandle, forwardRef, useState,useRef } from "react";
 import useSwr from "swr";
 import styles from "@/styles/Home.module.scss";
 import WebBuilder from "@/components/WebBuilder";
@@ -26,11 +26,20 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
     isLoading: codeLoading,
   } = useSwr(`../api/code/${id}`, fetchCatchError, swrOptions);
   const [cells, setCells] = useState([]);
+  const cellRef = useRef([]);
 
+  function pushToRef(e){
+    cellRef.current.push(e)
+  }
+  function saveAllCellsArray(){
+    cellRef.current.forEach((each) => {
+      each()
+    })
+  }
   async function updateTheFile() {
 
-    saveAllCell();
-    await sleep(500);
+    saveAllCellsArray();
+
     let updateArray = [];
     let createArray = [];
 
@@ -65,7 +74,11 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
   }));
 
   useEffect(() => {
-    if (code) setCells(() => code);
+    if (code){
+      code.sort((a, b) => a.createdAt > b.createdAt)
+      console.log(code)
+      setCells(() => code)
+    }
   }, [code]);
 
   if (codeLoading) return <Loading error={null} />;
@@ -82,8 +95,8 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
   };
 
   async function newCell(type) {
-    saveAllCell();
-    await sleep(500);
+    saveAllCellsArray();
+    
     let x = { output: "", id: uuidv4() };
 
     if (type === "cell") {
@@ -168,6 +181,7 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
                 deleteFunc: deleteCell,
                 clearFunc: clearCell,
                 onChageEachCell: handleChildStateChange,
+                pushToRef: pushToRef
               }}
             />
           );
@@ -181,6 +195,7 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
                 deleteFunc: deleteCell,
                 clearFunc: clearCell,
                 onChageEachCell: handleChildStateChange,
+                pushToRef: pushToRef
               }}
             />
           );
