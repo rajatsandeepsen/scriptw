@@ -1,11 +1,12 @@
 export const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export const swrOptions = {
-  // revalidateOnFocus: false,
+  revalidateOnFocus: false,
   // revalidateOnMount:false,
-  // revalidateOnReconnect: false,
-  // refreshWhenOffline: false,
-  // refreshWhenHidden: false,
+  shouldRetryOnError: false,
+  revalidateOnReconnect: false,
+  refreshWhenOffline: false,
+  refreshWhenHidden: false,
   refreshInterval: 0,
 };
 

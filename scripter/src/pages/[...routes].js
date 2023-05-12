@@ -13,9 +13,9 @@ export default function Home() {
   
   function GetRouteResult(){
     switch (path?.length) {
-      case 1: return <Profile user={ path[0] }/>
+      case 1: return <Profile userName={ path[0] }/>
       case 2: return <ScripterFile routes={ path.join('/') } />
-
+      
       default: return <Custom404 />
     }
   }

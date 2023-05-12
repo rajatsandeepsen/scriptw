@@ -7,6 +7,8 @@ import { useState, useEffect } from 'react'
 
 
 export default function SharedDom({file, func}) {
+  const {deleteAllCell,updateTheFile} = func
+
   const [codes, setCodes] = useState('')
   const [reableOnly, setReable] = useState(false)
   const [isAllRun, setAllRun] = useState(false)
@@ -39,33 +41,42 @@ export default function SharedDom({file, func}) {
 
   return (
         <section className='container d-flex flex-column position-relative w-100 gap-3'>
+        <div className={styles.domStyle}>
+            <ul>
+                <div className='btn-group'>
+                  <button onClick={updateTheFile} title='Ctrl + S' className={`${styles.Button} rounded-0 border-end-0 rounded-start`}>Save <i className="bi bi-cloud-fill"/></button>
+                  <button disabled={true} title='Ctrl + F' className={`${styles.Button} rounded-0 rounded-end`}>Fork <i className="bi bi-option"/></button>
+                </div>
+                <div className='btn-group'>
+                  <button onClick={deleteAllCell} title='' className={`${styles.Button} rounded-0 border-end-0 rounded-start`}>Delete All Cells <i className="bi bi-trash-fill"/></button>
+                  <button onClick={clearJSON} title='' className={`${styles.Button} rounded-0 rounded-end`}>Clear JSON <i className="bi bi-eraser-fill"/></button>
+                </div>
+            </ul>
+          </div>
           <div className={styles.codespace} data-running={isAllRun ? '△' : '▲'}>
            <CodeMirror id='shared'
-           readOnly= {reableOnly}
-            value={codes}
-            min-height='200px'
+            readOnly={reableOnly}
+            value={codes === 'null' ? '' : codes}
+            height='200px'
             theme={githubDark}
             extensions={[json()]}
             onChange={(value) => setCodes(value)}
             />
           </div>
           <div className={styles.domStyle}>
-            <ul>
-              <button disabled={isAllRun} title='Ctrl + Enter' onClick={runAll} className={styles.Button}>
+            <div className='btn-group'>
+              <button disabled={isAllRun} title='Ctrl + Enter' onClick={runAll} className={`${styles.Button} rounded-0 border-end-0 rounded-start`}>
               { isAllRun ? 
                           <span className='d-flex gap-1 align-items-center'>Executing All <i className='spinner-border spinner-border-sm'></i></span>
                          : <span className='d-flex gap-1'>Run All <i className="bi bi-play-circle-fill"/></span>}  
               </button>
 
-              <button onClick={() => setReable((reableOnly)=> !reableOnly)} className={styles.Button}>
+              <button onClick={() => setReable((reableOnly)=> !reableOnly)} className={`${styles.Button} rounded-0 rounded-end`}>
               JSON { !reableOnly ? <i className="bi bi-unlock-fill "/> : <i className="bi bi-lock-fill"/> }
               </button>
 
-              <button disabled={false} title='Ctrl + S' className={styles.Button}>Save <i className="bi bi-cloud-fill"/></button>
-              <button disabled={true} title='Ctrl + F' className={styles.Button}>Fork <i className="bi bi-option"/></button>
-              <button onClick={func} title='' className={styles.Button}>Delete All Cells <i className="bi bi-trash-fill"/></button>
-              <button onClick={clearJSON} title='' className={styles.Button}>Clear JSON <i className="bi bi-eraser-fill"/></button>
-            </ul>
+              
+            </div>
           </div>
         </section>
   )

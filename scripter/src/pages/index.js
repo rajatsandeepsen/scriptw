@@ -1,7 +1,33 @@
 import Head from 'next/head'
 import ScripterFile from '@/main/file'
+import styles from '@/styles/Home.module.scss'
+import Router from 'next/router'
+import { useSession, signIn } from "next-auth/react"
+import Image from 'next/image'
 
-export default function Home() {  
+export default function Home() {
+  const { data: session } = useSession()
+  const authForm = 'authForm'
+
+  if (session) {
+    // Router.push(`/${session.user.name}`)
+    console.log(session)
+  }
+
+  function handleSumbit(e){
+    e.preventDefault()
+    const name = e.target.name.value
+    const email = e.target.email.value
+    const password = e.target.password.value
+
+    const data = {
+      name,
+      email,
+      password
+    }
+
+    Router.push(`/${data.name}`)
+  }
 
   return (
     <>
@@ -33,9 +59,22 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/scripter.svg" />
       </Head>
-      <main className='text-white'>
-        <section className='d-flex my-5 flex-column gap-5 align-items-center'>
-          <ScripterFile/>
+      <main className='text-white vh-100'>
+        <section className='container d-flex my-5 flex-column text-center align-items-center justify-content-center'>
+        <h1 className='display-6'>Welcome to <span>ScriptW</span></h1>
+        <p className='lead'>In-Browser Jupyter Notebook Alternative for Javascript</p>
+        
+        <div className={styles.mockup}>
+          <Image src={'/mockup4.png'}  width={1200} height={600} loading='eager'alt='scriptw'/>
+        </div>
+        
+        <div className="d-flex flex-column gap-3 mt-5 align-items-center">
+          <h4>Create new Account / Login In</h4>
+            <div className="d-flex gap-3">
+              <button onClick={() => signIn('github')} className={styles.Button}>Sign up with <i className="bi bi-github" /></button>
+              <button disabled onClick={() => signIn('twitter')} className={styles.Button}>Sign up with <i className="bi bi-twitter" /></button>
+            </div>
+          </div>
         </section>
       </main>
     </>

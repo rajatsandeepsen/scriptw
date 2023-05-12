@@ -2,16 +2,14 @@
   "name": "scripter",
   "version": "0.1.0",
   "private": true,
-  
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "generate": "npx prisma generate",
-    "push" : "npx prisma db push ",
-    "seed" : "npx prisma db seed"
-    
+    "push": "npx prisma db push ",
+    "seed": "npx prisma db seed"
   },
   "dependencies": {
     "@codemirror/lang-css": "^6.2.0",
@@ -31,6 +29,7 @@
     "highlight.js": "^11.7.0",
     "jquery": "^3.6.4",
     "next": "13.2.4",
+    "next-auth": "^4.22.1",
     "openai": "^3.2.1",
     "react": "18.2.0",
     "react-device-detect": "^2.2.3",

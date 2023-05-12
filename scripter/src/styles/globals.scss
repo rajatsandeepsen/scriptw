@@ -14,6 +14,8 @@
   --github-blue: #a5d6ff;
   --github-blue2: #79c0ff;;
   --github-border: 1px solid #2D3139;
+  --border-radius: .375rem;
+  --border-radius2: 6px;
   --github-bg:#010409;
   --github-grey: #36334280;
 
@@ -45,10 +47,10 @@ ul {
 }
 body {
   background-color:  #0D1117;;
-  overflow-x: hidden;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  // justify-content: space-between;
 }
 
 ::-webkit-scrollbar {
@@ -163,6 +165,8 @@ code {
 
 footer {
   flex-grow: 1;
+  max-height: 200px;
+  margin-top: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -187,4 +191,14 @@ footer {
 
 .cm-content {
   min-height: 100px;
+}
+
+h1 {
+  span {
+    font-weight: 700;
+    background: linear-gradient(to right, #F27121, #E94057);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }

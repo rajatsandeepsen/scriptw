@@ -11,7 +11,7 @@ export default function Document() {
         <NextScript />
       </body>
       <footer>
-        <Image src={'/scripter.svg'} width={50} height={50}></Image>
+        <Image src={'/scripter.svg'} width={50} height={50} alt='scriptw' />
         <h6>Scriptw.js by @rajatsandeepsen</h6>
         <div className='d-flex gap-3 mt-1'>
         <a href="http://github.com/rajatsandeepsen" target="_blank" rel="noopener noreferrer"><i className="bi bi-github"/></a>

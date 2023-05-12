@@ -10,8 +10,7 @@ datasource db {
 model User {
   id        String       @id @default(uuid())
   email     String       @unique
-  password  String
-  name      String?
+  name      String       @unique
   createdAt DateTime @default(now())
   files     FileHeader[]
 }
@@ -24,7 +23,7 @@ model FileHeader {
   title       String?
   description String?
   json        Json?
-  visiiblity  Boolean  @default(false)
+  visibility  Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   cells       Cell[]
