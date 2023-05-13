@@ -1,0 +1,1 @@
+ALTER TABLE "FileHeader" RENAME COLUMN "visiiblity" TO "visibility";

@@ -1,9 +1,20 @@
 import Head from 'next/head'
-import ScripterFile from '@/components/file'
+import ScripterFile from '@/main/file'
+import styles from '@/styles/Home.module.scss'
+import Router from 'next/router'
+import { useSession, signIn } from "next-auth/react"
+import Image from 'next/image'
 
-export default function Home() {  
+export default function Home() {
+  const { data: session , status} = useSession()
 
-  return (
+  
+  if (status === 'authenticated' && session) {
+    Router.push(`/${session.user.email.split('@')[0]}`)
+  }
+
+
+  else return (
     <>
       <Head>
         <title>ScriptW</title>
@@ -33,9 +44,21 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/scripter.svg" />
       </Head>
-      <main className='text-white'>
-        <section className='d-flex my-5 flex-column gap-5 align-items-center'>
-          <ScripterFile/>
+      <main className='text-white vh-100'>
+        <section className='container d-flex my-5 flex-column text-center align-items-center justify-content-center'>
+        <h1 className='display-6'>Welcome to <span>ScriptW</span></h1>
+        <p className='lead'>In-Browser Jupyter Notebook Alternative for Javascript</p>
+        
+        <div className={styles.mockup}>
+          <Image src={'/mockup.png'}  width={1200} height={600} loading='eager'alt='scriptw'/>
+        </div>
+        
+        <div className="d-flex flex-column gap-3 mt-5 align-items-center">
+          <h4>Create new Account / Login In</h4>
+            <div className="d-flex gap-3">
+              <button onClick={() => signIn('github')} className={styles.Button}>Sign up with <i className="bi bi-github" /></button>
+            </div>
+          </div>
         </section>
       </main>
     </>
