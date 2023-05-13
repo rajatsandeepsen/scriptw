@@ -50,7 +50,7 @@ const Profile = ({userName}) => {
           }
           else data[key] = value;
       }
-      const res = await fetch(`./api/create/${userName}`, {...method, body: JSON.stringify(data)})
+      const res = await fetch(`./api/create/${userName}/${data.name}`, {...method, body: JSON.stringify(data)})
       if (res.status == 200) {
         Router.push(`/${userName}/${data.name}`)
      }
@@ -59,7 +59,7 @@ const Profile = ({userName}) => {
     return ( 
         <section className={`${styles.Profile} container`}>
           <header>
-            <img src={data.image || `/scripter.svg`} width={60} height={60} alt="scripter logo" />
+            <img src={data.image || `/person-circle.svg`} width={60} height={60} alt="scripter logo" />
             <h1> {data.name} </h1>
             <p> {data.email || ''} </p>
           </header>

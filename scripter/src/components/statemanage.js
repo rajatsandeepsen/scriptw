@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 
 
 
-export default function SharedDom({file, func}) {
+export default function SharedDom({file, func, userEmail}) {
   const {id, json, edit: editable} = file
   const {deleteAllCell,updateTheFile} = func
 
@@ -14,17 +14,23 @@ export default function SharedDom({file, func}) {
   const [reableOnly, setReable] = useState(!editable)
 
   function updateCode(){
-    updateTheFile().then(data => console.log(data))
+    updateTheFile()
+    .then(data => console.log(data))
 
     
     if (codes !== JSON.stringify(json, undefined, 4)) {
 
-      fetch(`/api/create/${id}`, {
+      let bodyJson = ''
+      try { bodyJson = JSON.parse(codes) }
+      catch(e) {console.log(e, codes); return;}
+
+
+      fetch(`/api/create/${userEmail ?? 'no-user'}/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(JSON.parse(codes)),
+        body: JSON.stringify(bodyJson),
       })
         .then((res) => res.json())
         .then((data) => console.log(data));

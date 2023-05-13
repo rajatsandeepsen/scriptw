@@ -6,10 +6,13 @@ import { AskGPT } from '@/components/assistance'
 import Loading from '@/components/loading'
 import { fetchCatchError, swrOptions } from '@/functions/fetcher'
 import { signIn } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 
 
 export default function ScripterFile({routes}) {  
   const codeSpaceCell = useRef()
+  const {data:session} = useSession()
+  const userEmail = session?.user.email.split('@')[0]
   
   
   const {data: file, error: fileError, isLoading: fileLoading} = useSwr(`../api/data/${routes}`, fetchCatchError, swrOptions)
@@ -50,9 +53,9 @@ export default function ScripterFile({routes}) {
             {file.description}
           </p>
         </header>
-        <SharedDom key={file.id} file={file} func={{'deleteAllCell': deleteAllCell,'updateTheFile': ()=> codeSpaceCell.current.updateTheFile }} />
+        <SharedDom key={file.id} file={file} userEmail={userEmail} func={{'deleteAllCell': deleteAllCell,'updateTheFile': ()=> codeSpaceCell.current.updateTheFile() }} />
         {/*<AskGPT />*/}
-        <CodeSpaceContainer key={file.id + "codespace"} ref={codeSpaceCell} editable={file.edit} fileId={file.id} />
+        <CodeSpaceContainer key={file.id + "codespace"} userEmail={userEmail} ref={codeSpaceCell} editable={file.edit} fileId={file.id} />
       </section>
     )
 }

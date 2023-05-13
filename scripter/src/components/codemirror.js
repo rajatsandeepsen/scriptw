@@ -85,7 +85,7 @@ export default function Codespace({ index, data, func, editable }) {
         id={id}
         onKeyDown={callRefCompute}
         className={`${styles.codespace} printCell`}
-        data-running={isRunning ? "✱" : noOfTimes.current}
+        data-running={isRunning ? "✱" : noOfTimes.current || 0}
         tabIndex="0"
       >
         <CodeMirror value={codes || `// Let start coding\n// (Shift + Enter) to Execute\n`} min-height="200px" theme={githubDark} extensions={[javascript({ jsx: true })]} onChange={(value) => setCodes(value)} />
