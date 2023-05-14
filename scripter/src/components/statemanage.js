@@ -10,7 +10,7 @@ export default function SharedDom({file, func, userEmail}) {
   const {id, json, edit: editable} = file
   const {deleteAllCell,updateTheFile} = func
 
-  const [codes, setCodes] = useState('')
+  const [codes, setCodes] = useState("{}")
   const [reableOnly, setReable] = useState(!editable)
 
   function updateCode(){
@@ -53,11 +53,11 @@ export default function SharedDom({file, func, userEmail}) {
 
   function clearJSON(){
     let text = "Are you sure you want to clear all the JSON?"
-    if (confirm(text)) setCodes('')
+    if (confirm(text)) setCodes("{}")
   }
 
   useEffect(() => {
-    let value = JSON.stringify(json, undefined, 4)
+    let value = JSON.stringify(json || {}, undefined, 4)
     setCodes(value)
 
     document.addEventListener('keydown', (e) => {
@@ -83,7 +83,7 @@ export default function SharedDom({file, func, userEmail}) {
                   <button disabled={true} title='Ctrl + F' className={`${styles.Button} rounded-0 rounded-end`}>Fork <i className="bi bi-option"/></button>
                 </div>
                 <div className='btn-group'>
-                  <button disabled={!editable} onClick={deleteAllCell} title='' className={`${styles.Button} rounded-0 border-end-0 rounded-start`}>Delete All Cells <i className="bi bi-trash-fill"/></button>
+                  <button disabled={true} onClick={deleteAllCell} title='bug fix' className={`${styles.Button} rounded-0 border-end-0 rounded-start`}>Delete All Cells <i className="bi bi-trash-fill"/></button>
                   <button disabled={!editable} onClick={clearJSON} title='' className={`${styles.Button} rounded-0 rounded-end`}>Clear JSON <i className="bi bi-eraser-fill"/></button>
                 </div>
             </ul>

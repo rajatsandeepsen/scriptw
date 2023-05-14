@@ -76,6 +76,15 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
     }
   }, [code]);
 
+  useEffect(() => {
+    document.addEventListener("keydown", (e) => {
+      if (e.altKey && e.keyCode == 78) {
+        e.preventDefault(); 
+        newCell('cell')
+      }
+    })
+  }, [])
+
   if (codeLoading) return <Loading error={null} />;
   if (codeError) return <Loading error={codeError} />;
 
@@ -131,13 +140,13 @@ const CodeSpaceContainer = forwardRef((props, ref) => {
       <div className="container d-flex">
       
       <ul className="mx-auto btn-group cellButtons">
-        <button disabled={!editable}
+        <button title="Alt + N" disabled={!editable}
           onClick={() => newCell("cell")}
           className={`${styles.Button} rounded-0 border-end-0 rounded-start`}
         >
           Add Cell <i className="bi bi-plus-square-fill"></i>
         </button>
-        <button
+        <button title="bug fix"
           disabled={true}
           onClick={() => newCell("web")}
           className={`${styles.Button} rounded-0 border-end-0`}

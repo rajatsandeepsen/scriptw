@@ -91,23 +91,24 @@ export default function Codespace({ index, data, func, editable }) {
         <CodeMirror value={codes || `// Let start coding\n// (Shift + Enter) to Execute\n`} min-height="200px" theme={githubDark} extensions={[javascript({ jsx: true })]} onChange={(value) => setCodes(value)} />
 
         <ul className="cellButtons">
-            <button disabled={!editable} title="del" onClick={() => deleteFunc(index)} className={`${styles.Button} ${open? "visible":"invisible"}`} >
+            {/*<button disabled={true} title="del" onClick={() => deleteFunc(index)} className={`${styles.Button} ${open? "visible":"invisible"}`} >
               Cell <i className="bi bi-trash-fill" />
-            </button>
-
+            </button>*/}
+            
+            <span></span>
+            <span></span>
             <button disabled={!editable} title="ctrl + backspace" onClick={() => clearFunc(index)} className={`${styles.Button} ${open? "visible":"invisible"}`} >
               Clear <i className="bi bi-eraser-fill" />
+            </button>
+            
+            <button disabled={!editable} onClick={() => setOpen(!open)} className={styles.Button}>
+              Open <i className="bi bi-grid-fill" />
             </button>
 
             <button disabled={!editable} title="ctrl + S" onClick={saveThisCell.current} className={`${styles.Button} saveCell ${open? "visible":"invisible"}`} >
               Save <i className="bi bi-save2" />
             </button>
           
-            <button disabled={!editable} onClick={() => setOpen(!open)} className={styles.Button}>
-              Open <i className="bi bi-grid-fill" />
-            </button>
-
-            <span></span>
             <RunButton />
         </ul>
       
