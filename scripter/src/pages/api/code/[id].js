@@ -10,14 +10,14 @@ export default async function handler(req, res) {
     let { id } = req.query;
     if (req.method === 'GET'){
       await throwCells(req, res, id)
-      res.status(200).json({message: 'Updated File'})
+      // res.status(200).json({message: 'Updated File'})
     }
 
     if (req.method === 'POST'){
       if (!session) return res.status(401).json({message: 'Unauthorized Access'})
 
       await updateFile(req, res, id)
-      res.status(200).json({message: 'Updated File'})
+      // res.status(200).json({message: 'Updated File'})
 
     }
     
@@ -34,7 +34,7 @@ async function updateFile(req, res, id){
   for(let element of req.body.create) {
          await forEachCellCreate(element, id, res)
   }
-
+  // res.status(404).json({message: 'Wrong request method/parameters'})
   
 }
 
