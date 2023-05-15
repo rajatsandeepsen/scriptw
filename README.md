@@ -1,4 +1,4 @@
-<img alt='mockupimage' src='https://scriptw.vercel.app/mockup.png' style='background-color: white; outline: 2px solid #fff; border-radius: 30px;'>
+<img alt='mockupimage' src='https://scriptw.vercel.app/markdown.png'>
 
 # [Script Writer](https://scriptw.vercel.app/) v1.0.1 stable release
 ### In-Browser Jupyter Notebook Alternative for Javascript | by [@rajatsandeepsen](https://github/rajatsandeepsen)
