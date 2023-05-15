@@ -4,8 +4,8 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
   // referentialIntegrity = "prisma"
 }
@@ -18,7 +18,7 @@ model User {
 }
 
 model FileHeader {
-  auther      User      @relation(fields: [autherId], references: [id])
+  auther      User     @relation(fields: [autherId], references: [id])
   autherId    String
   id          String   @id @default(uuid())
   name        String
@@ -35,14 +35,14 @@ model FileHeader {
 }
 
 model Cell {
-  id        String   @id @default(uuid())
+  id        String     @id @default(uuid())
   fileId    String
   file      FileHeader @relation(fields: [fileId], references: [id])
   type      typeEnum
-  runs      Int      @default(0)
-  init      String?  @db.VarChar(400)
-  output    String?  @db.VarChar(300)
-  createdAt DateTime @default(now())
+  runs      Int        @default(0)
+  init      String?    @db.Text
+  output    String?    @db.Text
+  createdAt DateTime   @default(now())
 
   // file FileHeader @relation(fields: [fileId], references: [id]) @ignore
 }

@@ -23,7 +23,7 @@ export default async function handler(req, res) {
             res.status(200).json({message: 'Created File'})
         } catch (error) {
             console.error(error)
-            res.status(500).json({message: 'Internal Server Error'})
+            res.status(404).json({message: 'Internal Server Error'})
         }
     }
 
@@ -42,7 +42,7 @@ export default async function handler(req, res) {
             res.status(200).json({message: 'Created File'})
         } catch (error) {
             console.error(error)
-            res.status(500).json({message: 'Internal Server Error'})
+            res.status(404).json({message: 'Internal Server Error'})
         }
     }
 

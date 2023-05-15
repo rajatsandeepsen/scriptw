@@ -52,7 +52,7 @@ export default function Codespace({ index, data, func, editable }) {
       ).innerHTML += `<span class='err'>${e}</span>`;
     } finally {
       setResult(() => document.getElementById(id + "result").innerHTML);
-      setTimeout(() => {setRunning(false); saveThisCell.current()}, 1000);
+      setTimeout(() => {setRunning(false);},1000) //saveThisCell.current()}, 1000);
     }
   };
 

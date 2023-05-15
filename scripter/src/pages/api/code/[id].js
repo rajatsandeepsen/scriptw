@@ -9,13 +9,15 @@ export default async function handler(req, res) {
 
     let { id } = req.query;
     if (req.method === 'GET'){
-      throwCells(req, res, id)
+      await throwCells(req, res, id)
+      res.status(200).json({message: 'Updated File'})
     }
 
     if (req.method === 'POST'){
       if (!session) return res.status(401).json({message: 'Unauthorized Access'})
 
-      updateFile(req, res, id)
+      await updateFile(req, res, id)
+      res.status(200).json({message: 'Updated File'})
 
     }
     
@@ -24,14 +26,16 @@ export default async function handler(req, res) {
 
 async function updateFile(req, res, id){
   console.log(req.body)
-  req.body && req.body.update.forEach((element,) => {
-    forEachCellUpdate(element, res)
-  })
-  req.body && req.body.create.forEach((element,) => {
-    forEachCellCreate(element, id, res)
-  })
+  // req.body ?? res.status(404).json({message: 'Wrong request method/parameters'})
 
-  res.status(200).json({message: 'Updated File'})
+  for(let element of req.body.update) {
+         await forEachCellUpdate(element, res)
+  }
+  for(let element of req.body.create) {
+         await forEachCellCreate(element, id, res)
+  }
+
+  
 }
 
 
@@ -48,7 +52,7 @@ async function throwCells(req, res, id){
       ? res.status(200).json(cells)
       : res.status(404).json({ message: "not found" })
     } catch (error) {
-      res.status(500).json({message: 'Internal Server Error'})
+      res.status(404).json({message: 'Internal Server Error'})
     }
 }
 
@@ -60,7 +64,7 @@ async function forEachCellUpdate(element, res) {
       data: { init: element.init, output: element.output, runs: element.runs || 0 },
     })
   } catch (error) {
-    res.status(500).json({message: 'Internal Server Error'})
+    res.status(404).json({message: 'Internal Server Error'})
   }
 
   // console.log(cell)
@@ -80,7 +84,7 @@ async function forEachCellCreate(element, id, res) {
        },
     })
   } catch (error) {
-    res.status(500).json({message: 'Internal Server Error'})
+    res.status(404).json({message: 'Internal Server Error'})
   }
 
   // console.log(cell)
