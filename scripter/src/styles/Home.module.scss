@@ -260,6 +260,16 @@
             width: 100%;
             padding: .5rem;
           }
+          input[type='radio']{
+              accent-color: white;
+              opacity: .7;
+              -webkit-appearance: radio;
+              appearance: radio;
+              width: 1rem;
+              &:checked {
+                accent-color: var(--github-green);
+              }
+          }
         }
         &:has(p){
           border: none;

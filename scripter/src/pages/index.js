@@ -44,7 +44,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/scripter.svg" />
       </Head>
-      <main className='text-white vh-100'>
+      <main className='text-white'>
         <section className='container d-flex my-5 flex-column text-center align-items-center justify-content-center'>
         <h1 className='display-6'>Welcome to <span>ScriptW</span></h1>
         <p className='lead'>In-Browser Jupyter Notebook Alternative for Javascript</p>

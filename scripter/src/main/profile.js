@@ -68,22 +68,22 @@ const Profile = ({userName}) => {
             <thead>
               <tr>
                 <td>Name</td>
-                <td>Title</td>
-                <td>Visibility</td>
-                <td>Created at</td>
-                <td>Updated at</td>
-                <td></td>
+                <td className='d-none d-md-table-cell'>Title</td>
+                <td className='d-none d-md-table-cell'>Visibility</td>
+                <td className='d-none d-md-table-cell'>Created at</td>
+                <td className='d-none d-md-table-cell'>Updated at</td>
+                <td>{" "}</td>
               </tr>
             </thead>
             <tbody>
               {data.files.map((file, index) => (
                 
                 <tr key={index}>
-                    <td> {file.name} </td>
-                    <td> {file.title} </td>
-                    <td><span className='myBadge'>{file.visibility ? "Public" : "Private"}</span></td>
-                    <td> {timeDifference(new Date(file.createdAt), new Date())} </td>
-                    <td> {timeDifference(new Date(file.updatedAt), new Date())} </td>
+                    <td> {file.name}.js </td>
+                    <td className='d-none d-md-table-cell'> {file.title} </td>
+                    <td className='d-none d-md-table-cell'><span className='myBadge'>{file.visibility ? "Public" : "Private"}</span></td>
+                    <td className='d-none d-md-table-cell'> {timeDifference(new Date(file.createdAt), new Date())} </td>
+                    <td className='d-none d-md-table-cell'> {timeDifference(new Date(file.updatedAt), new Date())} </td>
 
                     <td>
                       <Link key={index} href={`/${userName}/${file.name}`} target='_blank'><i className="bi bi-chevron-right" /></Link>
@@ -98,10 +98,19 @@ const Profile = ({userName}) => {
                 <td colSpan={6} className='bg-transparent border-0'><p className='mt-5 lead p-2'>Create new file</p></td>
               </tr>
               
-              <tr>
+              <tr className='d-flex flex-column d-md-table-row'>
                 <td><input type="text" name="name" placeholder="Name" minLength={4} maxLength={10} required/></td>
                 <td><input type="text" name="title" placeholder="Title" minLength={1} maxLength={25} required/></td>
-                <td><input type="text" name="visibility" placeholder="Public? (true/false)" minLength={1} maxLength={5} required/></td>
+                <td className='d-flex flex-column p-2 gap-2 align-items-start'>
+                  <span className='myBadge opacity-100 text-white-50 d-inline-flex'>
+                    <input type="radio" name="visibility" defaultChecked value={'true'} required className='me-1'/>
+                    Public 
+                  </span>
+                  <span className='myBadge opacity-100 text-white-50 d-inline-flex'>
+                    <input type="radio" name="visibility" value={'false'} required className='me-1'/>
+                    Private 
+                  </span>
+                </td>
                 <td colSpan="2"><input type="text" name="description" placeholder="Description" maxLength={40} required/></td>  
                 <td className='overflow-hidden'>
                   <button type='submit' className={`${styles.Button} justify-content-start border-0 rounded-0`}><i className="bi bi-chevron-right" /></button>
